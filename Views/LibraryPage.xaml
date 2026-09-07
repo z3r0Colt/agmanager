@@ -18,42 +18,64 @@
             </Grid.RowDefinitions>
 
             <!-- Toolbar -->
-            <Grid Grid.Row="0" Margin="0,0,0,20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Library" Style="{StaticResource PageTitle}"
-                           VerticalAlignment="Center"/>
-                <TextBox Grid.Column="1" Style="{StaticResource SearchBox}" Margin="20,0,0,0"
-                         Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"
-                         Tag="Filter games…" MaxWidth="300" HorizontalAlignment="Left"/>
-                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,8,0">
-                    <Button Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"
-                            Command="{Binding CheckForUpdatesAsyncCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE72C;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
-                                       FontSize="13" Margin="0,0,6,0" IsHitTestVisible="False"/>
-                            <TextBlock Text="Check Updates" IsHitTestVisible="False"/>
-                        </StackPanel>
+            <StackPanel Grid.Row="0" Margin="0,0,0,16">
+                <!-- Row 1: title, search, action buttons, sort -->
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Library" Style="{StaticResource PageTitle}"
+                               VerticalAlignment="Center"/>
+                    <TextBox x:Name="SearchBox" Grid.Column="1" Style="{StaticResource SearchBox}" Margin="20,0,0,0"
+                             Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"
+                             Tag="Filter games…" MaxWidth="300" HorizontalAlignment="Left"/>
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,8,0">
+                        <Button Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"
+                                Command="{Binding CheckForUpdatesAsyncCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE72C;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                           FontSize="13" Margin="0,0,6,0" IsHitTestVisible="False"/>
+                                <TextBlock Text="Check Updates" IsHitTestVisible="False"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButton}"
+                                Command="{Binding BackupAllAsyncCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE8D6;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                           FontSize="13" Margin="0,0,6,0" IsHitTestVisible="False"/>
+                                <TextBlock Text="Back Up All" IsHitTestVisible="False"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <TextBlock Grid.Column="3" Text="Sort:" Foreground="{StaticResource TextSecondaryBrush}"
+                               FontSize="13" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <ComboBox Grid.Column="4" ItemsSource="{Binding SortOptions}"
+                              SelectedItem="{Binding SortBy}" VerticalAlignment="Center" Width="140"/>
+                </Grid>
+                <!-- Row 2: status filter, tag filter, show hidden, pick for me, import -->
+                <WrapPanel Orientation="Horizontal">
+                    <ComboBox ItemsSource="{x:Static vm:LibraryViewModel.StatusOptions2}"
+                              SelectedItem="{Binding StatusFilter}"
+                              Width="130" Margin="0,0,8,4" ToolTip="Filter by status"/>
+                    <TextBox Style="{StaticResource SearchBox}"
+                             Text="{Binding TagFilter, UpdateSourceTrigger=PropertyChanged}"
+                             Tag="Filter by tag…" Width="150" Margin="0,0,8,4"/>
+                    <Button Style="{StaticResource SecondaryButton}" Margin="0,0,8,4"
+                            Command="{Binding PickForMeCommand}" ToolTip="Pick a random Backlog game">
+                        <TextBlock Text="Pick For Me" IsHitTestVisible="False"/>
                     </Button>
-                    <Button Style="{StaticResource SecondaryButton}"
-                            Command="{Binding BackupAllAsyncCommand}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="&#xE8D6;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
-                                       FontSize="13" Margin="0,0,6,0" IsHitTestVisible="False"/>
-                            <TextBlock Text="Back Up All" IsHitTestVisible="False"/>
-                        </StackPanel>
+                    <Button Style="{StaticResource SecondaryButton}" Margin="0,0,8,4"
+                            Command="{Binding ImportFolderAsyncCommand}" ToolTip="Import existing game folders">
+                        <TextBlock Text="Import Folder" IsHitTestVisible="False"/>
                     </Button>
-                </StackPanel>
-                <TextBlock Grid.Column="3" Text="Sort:" Foreground="{StaticResource TextSecondaryBrush}"
-                           FontSize="13" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                <ComboBox Grid.Column="4" ItemsSource="{Binding SortOptions}"
-                          SelectedItem="{Binding SortBy}" VerticalAlignment="Center" Width="140"/>
-            </Grid>
+                    <CheckBox Content="Show Hidden" IsChecked="{Binding ShowHidden}"
+                              VerticalAlignment="Center" Margin="0,0,0,4"/>
+                </WrapPanel>
+            </StackPanel>
 
             <!-- Empty state -->
             <ContentControl Grid.Row="1" Style="{StaticResource EmptyState}"

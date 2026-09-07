@@ -16,19 +16,21 @@ public partial class MainViewModel : ObservableObject
     public LibraryViewModel Library  { get; }
     public SettingsViewModel Settings { get; }
     public RedistViewModel Redist    { get; }
+    public StorageViewModel Storage  { get; }
     public GameSessionService Session { get; }
 
     private System.Windows.Threading.DispatcherTimer? _elapsedTimer;
 
     public MainViewModel(BrowseViewModel browse, DownloadsViewModel downloads,
         LibraryViewModel library, SettingsViewModel settings, RedistViewModel redist,
-        GameSessionService session)
+        StorageViewModel storage, GameSessionService session)
     {
         Browse    = browse;
         Downloads = downloads;
         Library   = library;
         Settings  = settings;
         Redist    = redist;
+        Storage   = storage;
         Session   = session;
 
         session.SessionStarted += g =>

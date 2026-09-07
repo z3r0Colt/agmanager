@@ -1,0 +1,83 @@
+<UserControl x:Class="AgApp.Views.StoragePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="clr-namespace:AgApp.Models"
+             xmlns:services="clr-namespace:AgApp.Services"
+             Background="Transparent"
+             Style="{StaticResource PageTransition}">
+
+    <Grid Margin="28,24,28,28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Storage" Style="{StaticResource PageTitle}" Margin="0,0,0,20"/>
+
+        <!-- Drive usage cards -->
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Drives}" Margin="0,0,0,20">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate><WrapPanel Orientation="Horizontal"/></ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type services:DriveUsageEntry}">
+                    <Border Background="{StaticResource CardBrush}" CornerRadius="10"
+                            Padding="16,12" Margin="0,0,12,12"
+                            BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" MinWidth="180">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" Foreground="White" FontSize="16" FontWeight="Bold"/>
+                            <TextBlock Foreground="{StaticResource TextSecondaryBrush}" FontSize="11" Margin="0,4,0,2">
+                                <Run Text="Free: "/>
+                                <Run Text="{Binding FreeBytes, StringFormat={}{0:N0} bytes}"/>
+                            </TextBlock>
+                            <TextBlock Foreground="{StaticResource AccentLightBrush}" FontSize="11">
+                                <Run Text="Library: "/>
+                                <Run Text="{Binding LibraryBytes, StringFormat={}{0:N0} bytes}"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!-- Move status -->
+        <TextBlock Grid.Row="1" Text="{Binding MoveStatus}" Foreground="{StaticResource TextSecondaryBrush}"
+                   FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Top"
+                   Visibility="{Binding MoveStatus, Converter={StaticResource StringToVisible}}"/>
+
+        <!-- Games list sorted by size -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Games}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:InstalledGame}">
+                        <Border Background="{StaticResource CardBrush}" CornerRadius="8"
+                                Padding="14,10" Margin="0,0,0,8"
+                                BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="{Binding Title}" Foreground="White" FontSize="14" FontWeight="SemiBold"/>
+                                    <TextBlock Foreground="{StaticResource TextSecondaryBrush}" FontSize="11" Margin="0,3,0,0">
+                                        <Run Text="{Binding InstalledSizeDisplay}"/>
+                                        <Run Text=" · "/>
+                                        <Run Text="{Binding InstallPath}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                                <Button Grid.Column="2" Style="{StaticResource SecondaryButton}"
+                                        Command="{Binding DataContext.MoveGameAsyncCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding}">
+                                    <TextBlock Text="Move" IsHitTestVisible="False"/>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

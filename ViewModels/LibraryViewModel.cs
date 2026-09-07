@@ -57,7 +57,13 @@ public partial class LibraryViewModel : ObservableObject
     // Save backup
     [ObservableProperty] private ObservableCollection<string> _saveCandidates = new();
 
+    // Library organization (Phase 5)
+    [ObservableProperty] private bool _showHidden;
+    [ObservableProperty] private string _statusFilter = "";
+    [ObservableProperty] private string _tagFilter = "";
+
     public static string[] BackupScheduleOptions = ["", "OnExit", "Daily", "Weekly", "Off"];
+    public static string[] StatusOptions2 = ["", "Backlog", "Playing", "Finished", "Dropped"];
 
     private InstalledGame? _editSnapshot;
 
@@ -79,9 +85,23 @@ public partial class LibraryViewModel : ObservableObject
     {
         Games.Clear();
         var filter = FilterText.ToLower();
-        var query = _library.Games
-            .Where(g => string.IsNullOrWhiteSpace(filter) ||
-                        g.Title.Contains(filter, StringComparison.OrdinalIgnoreCase));
+        var query = _library.Games.AsEnumerable();
+
+        // Hidden filter
+        if (!ShowHidden)
+            query = query.Where(g => !g.IsHidden);
+
+        // Status filter
+        if (!string.IsNullOrEmpty(StatusFilter))
+            query = query.Where(g => g.Status == StatusFilter);
+
+        // Tag filter
+        if (!string.IsNullOrWhiteSpace(TagFilter))
+            query = query.Where(g => g.Tags.Any(t => t.Contains(TagFilter, StringComparison.OrdinalIgnoreCase)));
+
+        // Text filter
+        if (!string.IsNullOrWhiteSpace(filter))
+            query = query.Where(g => g.Title.Contains(filter, StringComparison.OrdinalIgnoreCase));
 
         query = SortBy switch
         {
@@ -97,6 +117,9 @@ public partial class LibraryViewModel : ObservableObject
 
     partial void OnFilterTextChanged(string value) => Refresh();
     partial void OnSortByChanged(string value) => Refresh();
+    partial void OnShowHiddenChanged(bool value) => Refresh();
+    partial void OnStatusFilterChanged(string value) => Refresh();
+    partial void OnTagFilterChanged(string value) => Refresh();
 
     // ── Navigation ────────────────────────────────────────────────────────
 
@@ -449,6 +472,58 @@ public partial class LibraryViewModel : ObservableObject
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(game.PageUrl) { UseShellExecute = true });
         }
         catch (Exception ex) { AppLogger.Warn("OpenGamePage failed", ex); }
+    }
+
+    // ── Library Organization (Phase 5) ────────────────────────────────────
+
+    [RelayCommand]
+    public void PickForMe()
+    {
+        var backlog = Games.Where(g => g.Status == "Backlog" && !g.IsHidden).ToList();
+        if (!backlog.Any()) return;
+        var pick = backlog[Random.Shared.Next(backlog.Count)];
+        SelectGame(pick);
+    }
+
+    [RelayCommand]
+    public void ToggleHidden(InstalledGame game)
+    {
+        game.IsHidden = !game.IsHidden;
+        _library.Save();
+        Refresh();
+    }
+
+    [RelayCommand]
+    public async Task ImportFolderAsync()
+    {
+        try
+        {
+            var dlg = new Microsoft.Win32.OpenFileDialog
+            {
+                Title = "Select any file inside the parent folder containing game subfolders",
+                CheckFileExists = false
+            };
+            if (dlg.ShowDialog() != true) return;
+            var parentFolder = Path.GetDirectoryName(dlg.FileName) ?? "";
+            if (!Directory.Exists(parentFolder)) return;
+
+            var subfolders = Directory.GetDirectories(parentFolder);
+            int imported = 0;
+            foreach (var sub in subfolders)
+            {
+                if (_library.Games.Any(g => string.Equals(g.InstallPath, sub, StringComparison.OrdinalIgnoreCase)))
+                    continue;
+                var title = Path.GetFileName(sub);
+                var game = _library.BuildFromExtractedFolder(Guid.NewGuid().ToString("N"), title, "", sub);
+                if (game == null) continue;
+                _library.AddGame(game);
+                imported++;
+                try { await _metadata.FetchAndApplyAsync(game); } catch { }
+            }
+            Refresh();
+            if (imported > 0) AppLogger.Info($"Imported {imported} games from {parentFolder}");
+        }
+        catch (Exception ex) { AppLogger.Error("ImportFolder failed", ex); }
     }
 
     [RelayCommand]

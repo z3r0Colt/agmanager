@@ -315,6 +315,28 @@
                                     <TextBlock Text="Runtimes" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
+
+                            <Button Command="{Binding NavigateCommand}" CommandParameter="Storage">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource NavButton}">
+                                        <Style.Triggers>
+                                            <DataTrigger Value="True"
+                                                Binding="{Binding DataContext.CurrentPage,
+                                                          RelativeSource={RelativeSource AncestorType=Window},
+                                                          Converter={StaticResource PageActive},
+                                                          ConverterParameter=Storage}">
+                                                <Setter Property="Tag" Value="active"/>
+                                                <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE8B7;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                               FontSize="15" VerticalAlignment="Center" Margin="0,0,10,0" IsHitTestVisible="False"/>
+                                    <TextBlock Text="Storage" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
 
                         <!-- Version footer -->
@@ -361,6 +383,11 @@
                                                    RelativeSource={RelativeSource AncestorType=Window},
                                                    Converter={StaticResource PageVisible},
                                                    ConverterParameter=Redist}"/>
+                    <views:StoragePage DataContext="{Binding Storage}"
+                                       Visibility="{Binding DataContext.CurrentPage,
+                                                    RelativeSource={RelativeSource AncestorType=Window},
+                                                    Converter={StaticResource PageVisible},
+                                                    ConverterParameter=Storage}"/>
                 </Grid>
             </Grid>
         </Grid>
