@@ -67,3 +67,5 @@ C:\Users\coltm\OneDrive\Desktop\agapp\obj\Debug\net8.0-windows\DaveyJonesLocker.
 C:\Users\coltm\OneDrive\Desktop\agapp\obj\Debug\net8.0-windows\ref\DaveyJonesLocker.dll
 C:\Users\coltm\OneDrive\Desktop\agapp\obj\Debug\net8.0-windows\Views\StoragePage.g.cs
 C:\Users\coltm\OneDrive\Desktop\agapp\obj\Debug\net8.0-windows\Views\StoragePage.baml
+C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\DiscordRPC.dll
+C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\Newtonsoft.Json.dll

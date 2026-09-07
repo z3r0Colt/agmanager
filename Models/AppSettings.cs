@@ -24,6 +24,11 @@ public class AppSettings
     public int MaxBackupsPerGame { get; set; } = 5;
     public string DefaultBackupSchedule { get; set; } = "OnExit";
 
+    // Discord Rich Presence (Phase 6 stub)
+    public bool EnableDiscordRichPresence { get; set; } = false;
+    /// <summary>Your Discord Application Client ID from https://discord.com/developers/applications</summary>
+    public string DiscordClientId { get; set; } = "";
+
     public double WindowLeft { get; set; } = double.NaN;
     public double WindowTop { get; set; } = double.NaN;
     public double WindowWidth { get; set; } = 1200;

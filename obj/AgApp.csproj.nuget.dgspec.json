@@ -47,6 +47,10 @@
               "target": "Package",
               "version": "[8.3.2, )"
             },
+            "DiscordRichPresence": {
+              "target": "Package",
+              "version": "[1.6.1.70, )"
+            },
             "Hardcodet.NotifyIcon.Wpf": {
               "target": "Package",
               "version": "[2.0.1, )"

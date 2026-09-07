@@ -24,6 +24,8 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty] private int _maxConcurrentDownloads = 2;
     [ObservableProperty] private bool _notifyOnExtractionComplete = true;
     [ObservableProperty] private int _updateCheckIntervalHours = 24;
+    [ObservableProperty] private bool _enableDiscordRichPresence;
+    [ObservableProperty] private string _discordClientId = "";
 
     public static string[] BackupScheduleOptions = ["OnExit", "Daily", "Weekly", "Off"];
 
@@ -49,6 +51,8 @@ public partial class SettingsViewModel : ObservableObject
         MaxConcurrentDownloads = s.MaxConcurrentDownloads;
         NotifyOnExtractionComplete = s.NotifyOnExtractionComplete;
         UpdateCheckIntervalHours = s.UpdateCheckIntervalHours;
+        EnableDiscordRichPresence = s.EnableDiscordRichPresence;
+        DiscordClientId = s.DiscordClientId;
     }
 
     [RelayCommand]
@@ -76,6 +80,8 @@ public partial class SettingsViewModel : ObservableObject
         s.MaxConcurrentDownloads = Math.Clamp(MaxConcurrentDownloads, 1, 5);
         s.NotifyOnExtractionComplete = NotifyOnExtractionComplete;
         s.UpdateCheckIntervalHours = Math.Max(1, UpdateCheckIntervalHours);
+        s.EnableDiscordRichPresence = EnableDiscordRichPresence;
+        s.DiscordClientId = DiscordClientId;
         _settingsService.Save();
 
         System.Windows.MessageBox.Show("Settings saved.", "Davey Jones' Locker",

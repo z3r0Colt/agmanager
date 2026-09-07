@@ -138,6 +138,32 @@
                 </Border>
             </Border>
 
+            <!-- Discord Rich Presence card -->
+            <Border CornerRadius="13" Margin="0,0,0,20" Padding="1.5">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#28ffffff" Offset="0"/>
+                        <GradientStop Color="#06ffffff" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border Background="{StaticResource CardBrush}" CornerRadius="12" Padding="22">
+                    <StackPanel>
+                        <TextBlock Text="Discord Rich Presence" Style="{StaticResource SectionHeader}" Margin="0,0,0,6"/>
+                        <TextBlock Style="{StaticResource SettingHint}" Margin="0,0,0,12">
+                            <Run Text="Shows the game you are playing in your Discord status. Requires a Discord Application Client ID from"/>
+                            <Run Text=" discord.com/developers/applications" FontStyle="Italic"/>
+                            <Run Text="."/>
+                        </TextBlock>
+                        <CheckBox Content="Enable Discord Rich Presence (stub — configure Client ID below)"
+                                  IsChecked="{Binding EnableDiscordRichPresence}" Margin="0,0,0,10"/>
+                        <TextBlock Text="Discord Application Client ID" Style="{StaticResource SettingLabel}"/>
+                        <TextBox Style="{StaticResource SettingTextBox}" Margin="0,4,0,0"
+                                 Text="{Binding DiscordClientId, UpdateSourceTrigger=PropertyChanged}"
+                                 Tag="e.g. 1234567890123456789"/>
+                    </StackPanel>
+                </Border>
+            </Border>
+
             <!-- Behaviour card -->
             <Border CornerRadius="13" Margin="0,0,0,28" Padding="1.5">
                 <Border.Background>

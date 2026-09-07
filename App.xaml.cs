@@ -26,6 +26,7 @@ public partial class App : Application
         collection.AddSingleton<SaveBackupService>();
         collection.AddSingleton<UpdateCheckService>();
         collection.AddSingleton<StorageService>();
+        collection.AddSingleton<DiscordService>();
 
         collection.AddSingleton<BrowseViewModel>();
         collection.AddSingleton<DownloadsViewModel>();
@@ -58,6 +59,9 @@ public partial class App : Application
         };
 
         Services.GetRequiredService<UpdateCheckService>().StartBackgroundChecks();
+
+        // Discord Rich Presence stub
+        Services.GetRequiredService<DiscordService>().Initialize();
 
         Services.GetRequiredService<MainWindow>().Show();
     }

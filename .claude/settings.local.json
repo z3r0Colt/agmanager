@@ -8,7 +8,8 @@
       "WebFetch(domain:www.ankergames.net)",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(dotnet build *)"
+      "Bash(dotnet build *)",
+      "Bash(dotnet add *)"
     ]
   }
 }
