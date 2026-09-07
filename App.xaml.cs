@@ -25,7 +25,6 @@ public partial class App : Application
         collection.AddSingleton<GameSessionService>();
         collection.AddSingleton<SaveBackupService>();
         collection.AddSingleton<UpdateCheckService>();
-        collection.AddSingleton<StorageService>();
         collection.AddSingleton<DiscordService>();
         collection.AddSingleton<GamepadService>();
 
@@ -34,9 +33,7 @@ public partial class App : Application
         collection.AddSingleton<LibraryViewModel>();
         collection.AddSingleton<SettingsViewModel>();
         collection.AddSingleton<RedistViewModel>();
-        collection.AddSingleton<StorageViewModel>();
         collection.AddSingleton<AboutViewModel>();
-        collection.AddSingleton<LogViewModel>();
         collection.AddSingleton<MainViewModel>();
 
         collection.AddSingleton<MainWindow>();

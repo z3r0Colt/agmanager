@@ -1,0 +1,20 @@
+# Build output
+bin/
+obj/
+
+# VS / Rider
+.vs/
+*.user
+*.suo
+.idea/
+
+# NuGet
+packages/
+*.nupkg
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Claude local settings
+.claude/settings.local.json
