@@ -1,0 +1,136 @@
+2026-09-06 03:31:14.645: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-06 03:31:14.645: [INFO] Profiles total count: 1
+2026-09-06 03:31:14.645: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=null
+2026-09-06 03:31:14.645: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-06 03:31:14.645: [INFO] OnDoneLoading sync enabled: 0
+2026-09-06 03:31:14.645: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-06 03:31:14.645: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-06 03:31:14.645: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-06 03:31:40.927: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-06 03:36:33.965: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-06 03:36:33.965: [INFO] Profiles total count: 1
+2026-09-06 03:36:33.965: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=null
+2026-09-06 03:36:33.965: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-06 03:36:33.965: [INFO] OnDoneLoading sync enabled: 0
+2026-09-06 03:36:33.965: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-06 03:36:33.965: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-06 03:36:33.965: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-06 03:36:57.399: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-06 03:40:04.599: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-06 03:40:04.599: [INFO] Profiles total count: 1
+2026-09-06 03:40:04.599: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=null
+2026-09-06 03:40:04.599: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-06 03:40:04.599: [INFO] OnDoneLoading sync enabled: 0
+2026-09-06 03:40:04.599: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-06 03:40:04.599: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-06 03:40:04.599: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-06 03:40:56.553: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-06 03:42:46.772: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-06 03:42:46.772: [INFO] Profiles total count: 1
+2026-09-06 03:42:46.772: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-06T03:40:32.257Z
+2026-09-06 03:42:46.772: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-06 03:42:46.772: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-06T03:40:32.257Z
+2026-09-06 03:42:46.772: [INFO] OnDoneLoading sync enabled: 0
+2026-09-06 03:42:46.772: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-06 03:42:46.772: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-06 03:42:46.772: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-06 03:48:39.331: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-06 03:48:39.331: [INFO] Profiles total count: 1
+2026-09-06 03:48:39.331: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-06T03:47:54.062Z
+2026-09-06 03:48:39.331: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-06 03:48:39.331: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-06T03:47:54.062Z
+2026-09-06 03:48:39.331: [INFO] OnDoneLoading sync enabled: 0
+2026-09-06 03:48:39.331: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-06 03:48:39.331: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-06 03:48:39.331: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-06 03:49:45.268: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 01:02:53.871: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 01:02:53.871: [INFO] Profiles total count: 1
+2026-09-07 01:02:53.871: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-06T03:49:01.799Z
+2026-09-07 01:02:53.871: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 01:02:53.871: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-06T03:49:01.799Z
+2026-09-07 01:02:53.871: [INFO] OnDoneLoading sync enabled: 0
+2026-09-07 01:02:53.871: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-07 01:02:53.871: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-07 01:02:53.871: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 01:10:22.184: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 01:14:27.549: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 01:14:27.549: [INFO] Profiles total count: 1
+2026-09-07 01:14:27.549: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T01:08:45.971Z
+2026-09-07 01:14:27.549: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 01:14:27.549: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T01:08:45.971Z
+2026-09-07 01:14:27.549: [INFO] OnDoneLoading sync enabled: 0
+2026-09-07 01:14:27.549: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-07 01:14:27.549: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-07 01:14:27.549: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 01:15:59.501: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 01:24:05.357: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 01:24:05.357: [INFO] Profiles total count: 1
+2026-09-07 01:24:05.357: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T01:15:22.133Z
+2026-09-07 01:24:05.357: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 01:24:05.357: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T01:15:22.133Z
+2026-09-07 01:24:05.357: [INFO] OnDoneLoading sync enabled: 0
+2026-09-07 01:24:05.357: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-07 01:24:05.357: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-07 01:24:05.357: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 01:57:56.147: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 01:58:13.625: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 01:58:13.625: [INFO] Profiles total count: 1
+2026-09-07 01:58:13.625: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T01:15:22.133Z
+2026-09-07 01:58:13.625: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 01:58:13.625: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T01:15:22.133Z
+2026-09-07 01:58:13.625: [INFO] OnDoneLoading sync enabled: 0
+2026-09-07 01:58:13.625: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-07 01:58:13.625: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-07 01:58:13.625: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 02:03:33.237: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 02:38:09.633: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 02:38:09.633: [INFO] Profiles total count: 1
+2026-09-07 02:38:09.633: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T01:15:22.133Z
+2026-09-07 02:38:09.633: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 02:38:09.633: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T01:15:22.133Z
+2026-09-07 02:38:09.633: [INFO] OnDoneLoading sync enabled: 0
+2026-09-07 02:38:09.633: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-07 02:38:09.633: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-07 02:38:09.633: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 02:39:38.902: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 02:42:25.634: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 02:42:25.634: [INFO] Profiles total count: 1
+2026-09-07 02:42:25.634: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T02:38:37.697Z
+2026-09-07 02:42:25.634: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 02:42:25.634: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T02:38:37.697Z
+2026-09-07 02:42:25.634: [INFO] OnDoneLoading sync enabled: 0
+2026-09-07 02:42:25.634: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-07 02:42:25.634: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-07 02:42:25.634: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 02:43:00.175: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 02:45:34.239: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 02:45:34.239: [INFO] Profiles total count: 1
+2026-09-07 02:45:34.239: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T02:42:31.501Z
+2026-09-07 02:45:34.239: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 02:45:34.239: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T02:42:31.501Z
+2026-09-07 02:45:34.239: [INFO] OnDoneLoading sync enabled: 0
+2026-09-07 02:45:34.239: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-07 02:45:34.239: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-07 02:45:34.239: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 02:50:15.389: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 17:32:19.214: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 17:32:19.214: [INFO] Profiles total count: 1
+2026-09-07 17:32:19.214: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T02:48:13.419Z
+2026-09-07 17:32:19.214: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 17:32:19.214: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T02:48:13.419Z
+2026-09-07 17:32:19.214: [INFO] OnDoneLoading sync enabled: 0
+2026-09-07 17:32:19.214: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-07 17:32:19.214: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-07 17:32:19.214: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 17:35:37.356: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 17:43:36.362: [INFO] CurrentProfilePath: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 17:43:36.362: [INFO] Profiles total count: 1
+2026-09-07 17:43:36.362: [INFO] Profile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T02:48:13.419Z
+2026-09-07 17:43:36.362: [INFO] LastUsedProfileDir: C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default
+2026-09-07 17:43:36.362: [INFO] MostRecentlyActiveProfile: name=Profile 1 path=C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\AgApp.exe.WebView2\EBWebView\Default lastActive=2026-09-07T02:48:13.419Z
+2026-09-07 17:43:36.362: [INFO] OnDoneLoading sync enabled: 0
+2026-09-07 17:43:36.362: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-09-07 17:43:36.362: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-09-07 17:43:36.362: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-09-07 17:45:42.710: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1

@@ -1,0 +1,25 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Base -->
+    <Color x:Key="BackgroundColor">#0a0d14</Color>
+    <Color x:Key="BgAltColor">#10131c</Color>
+    <Color x:Key="SurfaceColor">#0e1220</Color>
+    <Color x:Key="CardColor">#131828</Color>
+
+    <!-- Accent -->
+    <Color x:Key="AccentColor">#7c5cff</Color>
+    <Color x:Key="AccentLightColor">#a98bff</Color>
+    <Color x:Key="AccentDimColor">#261e55</Color>
+    <Color x:Key="CyanColor">#22d3ee</Color>
+    <Color x:Key="PinkColor">#f43f8e</Color>
+    <Color x:Key="GreenColor">#34d399</Color>
+
+    <!-- Border -->
+    <Color x:Key="BorderColor">#1e2540</Color>
+
+    <!-- Text -->
+    <Color x:Key="TextColor">#d1d5e4</Color>
+    <Color x:Key="TextSecondaryColor">#7b8399</Color>
+
+</ResourceDictionary>

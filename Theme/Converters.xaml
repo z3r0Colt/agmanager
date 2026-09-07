@@ -1,0 +1,21 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:conv="clr-namespace:AgApp.Converters">
+
+    <conv:PageActiveConverter        x:Key="PageActive"/>
+    <conv:PageVisibilityConverter    x:Key="PageVisible"/>
+    <conv:BoolToVisibilityConverter  x:Key="BoolToVisible"/>
+    <conv:BoolToVisibilityConverter  x:Key="BoolToCollapsed" Invert="True"/>
+    <conv:BytesToStringConverter     x:Key="BytesToString"/>
+    <conv:SpeedToStringConverter     x:Key="SpeedToString"/>
+    <conv:EtaToStringConverter       x:Key="EtaToString"/>
+    <conv:StatusToColorConverter     x:Key="StatusToColor"/>
+    <conv:ZeroToVisibilityConverter  x:Key="ZeroToVisible"/>
+    <conv:StringToVisibilityConverter x:Key="StringToVisible"/>
+    <conv:GreaterThanOneConverter    x:Key="GreaterThanOne"/>
+    <conv:MetacriticToBrushConverter x:Key="MetacriticToBrush"/>
+    <conv:IntGreaterThanZeroConverter x:Key="IntGtZeroToVisible"/>
+    <conv:IntGreaterThanZeroConverter x:Key="IntGtZeroToCollapsed" Invert="True"/>
+    <conv:InverseBoolConverter       x:Key="InverseBool"/>
+
+</ResourceDictionary>

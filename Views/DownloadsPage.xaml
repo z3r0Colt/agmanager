@@ -1,0 +1,154 @@
+<UserControl x:Class="AgApp.Views.DownloadsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="clr-namespace:AgApp.Models"
+             Background="Transparent"
+             Style="{StaticResource PageTransition}">
+
+    <Grid Margin="28,24,28,28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Downloads" Style="{StaticResource PageTitle}"
+                       VerticalAlignment="Center"/>
+            <Button Grid.Column="2" Style="{StaticResource SecondaryButton}"
+                    Command="{Binding ClearCompletedCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE74D;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                               FontSize="13" Margin="0,0,6,0" IsHitTestVisible="False"/>
+                    <TextBlock Text="Clear Finished" IsHitTestVisible="False"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <!-- Empty state -->
+        <ContentControl Grid.Row="1" Style="{StaticResource EmptyState}"
+                        Tag="&#xE896;" Content="No active downloads"
+                        Visibility="{Binding Jobs.Count, Converter={StaticResource ZeroToVisible}}"/>
+
+        <!-- Job list -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Jobs}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:DownloadJob}">
+                        <!-- Gradient border card -->
+                        <Border CornerRadius="13" Margin="0,0,0,12" Padding="1.5">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#30ffffff" Offset="0"/>
+                                    <GradientStop Color="#08ffffff" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Border Background="{StaticResource CardBrush}" CornerRadius="12" Padding="18">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="56"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Cover -->
+                                    <Border Grid.Column="0" Width="48" Height="64" CornerRadius="6"
+                                            Background="#1a1f38" ClipToBounds="True" VerticalAlignment="Center">
+                                        <Image Source="{Binding CoverUrl}" Stretch="UniformToFill"/>
+                                    </Border>
+
+                                    <!-- Info -->
+                                    <StackPanel Grid.Column="1" Margin="14,0">
+                                        <Grid Margin="0,0,0,8">
+                                            <TextBlock Text="{Binding GameTitle}" FontWeight="SemiBold"
+                                                       Foreground="White" FontSize="15"/>
+                                            <Border HorizontalAlignment="Right" CornerRadius="20" Padding="10,4"
+                                                    Background="{Binding Status, Converter={StaticResource StatusToColor}}">
+                                                <TextBlock Text="{Binding Status}" Foreground="White" FontSize="11"/>
+                                            </Border>
+                                        </Grid>
+
+                                        <ProgressBar Value="{Binding Progress, Mode=OneWay}" Maximum="100"
+                                                     Height="5" BorderThickness="0" Margin="0,0,0,8"/>
+
+                                        <Grid>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Foreground="{StaticResource TextSecondaryBrush}" FontSize="11">
+                                                    <Run Text="{Binding DownloadedBytes, Converter={StaticResource BytesToString}}"/>
+                                                    <Run Text=" / "/>
+                                                    <Run Text="{Binding TotalBytes, Converter={StaticResource BytesToString}}"/>
+                                                </TextBlock>
+                                                <TextBlock Margin="12,0,0,0" FontSize="11">
+                                                    <TextBlock.Foreground>
+                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                            <GradientStop Color="#7c5cff" Offset="0"/>
+                                                            <GradientStop Color="#22d3ee" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </TextBlock.Foreground>
+                                                    <Run Text="{Binding SpeedBytesPerSec, Converter={StaticResource SpeedToString}}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <TextBlock HorizontalAlignment="Right" Foreground="{StaticResource TextSecondaryBrush}" FontSize="11">
+                                                <Run Text="ETA: "/>
+                                                <Run Text="{Binding Eta, Converter={StaticResource EtaToString}}"/>
+                                            </TextBlock>
+                                        </Grid>
+
+                                        <TextBlock Text="{Binding ErrorMessage}" Foreground="#f43f8e" FontSize="11"
+                                                   Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisible}}"
+                                                   Margin="0,6,0,0" TextWrapping="Wrap"/>
+                                    </StackPanel>
+
+                                    <!-- Controls -->
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Button Command="{Binding DataContext.PauseResumeCommand,
+                                                          RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                ToolTip="Pause / Resume">
+                                            <Button.Style>
+                                                <Style TargetType="Button" BasedOn="{StaticResource IconButton}">
+                                                    <Setter Property="Content">
+                                                        <Setter.Value>
+                                                            <TextBlock Text="&#xE103;"
+                                                                       FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                                                       FontSize="16" IsHitTestVisible="False"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Paused">
+                                                            <Setter Property="Content">
+                                                                <Setter.Value>
+                                                                    <TextBlock Text="&#xE102;"
+                                                                               FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                                                               FontSize="16" IsHitTestVisible="False"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                        <Button Style="{StaticResource IconButton}" Margin="4,0,0,0"
+                                                Command="{Binding DataContext.CancelJobCommand,
+                                                          RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                ToolTip="Cancel">
+                                            <TextBlock Text="&#xE8BB;"
+                                                       FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                                       FontSize="16" IsHitTestVisible="False"/>
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

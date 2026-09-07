@@ -1,0 +1,132 @@
+<UserControl x:Class="AgApp.Views.RedistPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:AgApp.ViewModels"
+             Background="Transparent"
+             Style="{StaticResource PageTransition}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel MaxWidth="680" HorizontalAlignment="Left" Margin="28,24,28,28">
+
+            <TextBlock Text="Runtimes &amp; Redistributables" Style="{StaticResource PageTitle}"
+                       Margin="0,0,0,6"/>
+            <TextBlock Text="One-click install for the libraries most games depend on."
+                       Foreground="{StaticResource TextSecondaryBrush}" FontSize="13"
+                       Margin="0,0,0,28"/>
+
+            <!-- Section list -->
+            <ItemsControl ItemsSource="{Binding Sections}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:RedistSection}">
+                        <StackPanel Margin="0,0,0,24">
+
+                            <!-- Section header -->
+                            <TextBlock Text="{Binding Title}"
+                                       Style="{StaticResource SectionHeader}"
+                                       Margin="2,0,0,10"/>
+
+                            <!-- Glass card wrapping all items -->
+                            <Border CornerRadius="13" Padding="1.5">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#28ffffff" Offset="0"/>
+                                        <GradientStop Color="#06ffffff" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Border Background="{StaticResource CardBrush}" CornerRadius="12">
+
+                                    <ItemsControl ItemsSource="{Binding Items}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type vm:RedistItem}">
+                                                <Grid Margin="0">
+                                                    <!-- Divider between rows (not on first) -->
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Border Grid.Row="0" Height="1"
+                                                            Background="{StaticResource BorderBrush}"
+                                                            Margin="20,0"/>
+
+                                                    <Grid Grid.Row="1" Margin="20,14,16,14">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <!-- Name + description + progress -->
+                                                        <StackPanel Grid.Column="0"
+                                                                    VerticalAlignment="Center"
+                                                                    Margin="0,0,16,0">
+                                                            <TextBlock Text="{Binding Name}"
+                                                                       Foreground="{StaticResource TextBrush}"
+                                                                       FontSize="13" FontWeight="SemiBold"/>
+                                                            <TextBlock Text="{Binding Description}"
+                                                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                                                       FontSize="11" Margin="0,2,0,0"/>
+                                                            <!-- Progress bar — visible while downloading -->
+                                                            <Grid Margin="0,6,0,0">
+                                                                <Grid.Style>
+                                                                    <Style TargetType="Grid">
+                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Grid.Style>
+                                                                <ProgressBar Value="{Binding Progress, Mode=OneWay}"
+                                                                             Maximum="100" Height="4"
+                                                                             BorderThickness="0"/>
+                                                            </Grid>
+                                                        </StackPanel>
+
+                                                        <!-- Install button -->
+                                                        <Button Grid.Column="1"
+                                                                Style="{StaticResource MiniAccentButton}"
+                                                                Command="{Binding DataContext.InstallCommand,
+                                                                          RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                                CommandParameter="{Binding}"
+                                                                IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBool}}"
+                                                                MinWidth="100" VerticalAlignment="Center">
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                                                           FontSize="12" Margin="0,0,5,0"
+                                                                           IsHitTestVisible="False">
+                                                                    <TextBlock.Style>
+                                                                        <Style TargetType="TextBlock">
+                                                                            <!-- default: external link icon when browser -->
+                                                                            <Setter Property="Text" Value="&#xE8A7;"/>
+                                                                            <Style.Triggers>
+                                                                                <DataTrigger Binding="{Binding IsDirectDownload}" Value="True">
+                                                                                    <Setter Property="Text" Value="&#xE896;"/>
+                                                                                </DataTrigger>
+                                                                                <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                                                                                    <Setter Property="Text" Value="&#xE72C;"/>
+                                                                                </DataTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </TextBlock.Style>
+                                                                </TextBlock>
+                                                                <TextBlock Text="{Binding ActionLabel}"
+                                                                           IsHitTestVisible="False"/>
+                                                            </StackPanel>
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </Border>
+                            </Border>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
