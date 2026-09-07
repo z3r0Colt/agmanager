@@ -53,7 +53,7 @@ namespace AgApp.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AgApp;component/views/redistpage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/DaveyJonesLocker;component/views/redistpage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\RedistPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

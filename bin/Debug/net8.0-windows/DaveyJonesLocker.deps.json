@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "AgApp/1.0.0": {
+      "DaveyJonesLocker/1.0.0": {
         "dependencies": {
           "CommunityToolkit.Mvvm": "8.3.2",
           "Hardcodet.NotifyIcon.Wpf": "2.0.1",
@@ -19,7 +19,7 @@
           "Microsoft.Web.WebView2.Wpf": "1.0.2792.45"
         },
         "runtime": {
-          "AgApp.dll": {}
+          "DaveyJonesLocker.dll": {}
         }
       },
       "CommunityToolkit.Mvvm/8.3.2": {
@@ -245,7 +245,7 @@
     }
   },
   "libraries": {
-    "AgApp/1.0.0": {
+    "DaveyJonesLocker/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:AgApp.Views"
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
-        Title="AgApp" Height="780" Width="1200"
+        Title="Davey Jones' Locker" Height="780" Width="1200"
         MinHeight="600" MinWidth="900"
         Background="{StaticResource BackgroundBrush}"
         FontFamily="Segoe UI Variable, Segoe UI"
@@ -43,7 +43,7 @@
                             </LinearGradientBrush>
                         </TextBlock.Foreground>
                     </TextBlock>
-                    <TextBlock Text="  AgApp" Foreground="{StaticResource TextBrush}"
+                    <TextBlock Text="  Davey Jones' Locker" Foreground="{StaticResource TextBrush}"
                                FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center"/>
                 </StackPanel>
 
@@ -190,7 +190,7 @@
 
                         <!-- Brand block -->
                         <StackPanel Grid.Row="0" Margin="20,24,20,20" Panel.ZIndex="1">
-                            <TextBlock Text="AnkerGames" FontSize="17" FontWeight="Bold">
+                            <TextBlock Text="Davey Jones' Locker" FontSize="17" FontWeight="Bold">
                                 <TextBlock.Foreground>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
                                         <GradientStop Color="#7c5cff" Offset="0"/>
@@ -198,7 +198,7 @@
                                     </LinearGradientBrush>
                                 </TextBlock.Foreground>
                             </TextBlock>
-                            <TextBlock Text="Game Manager" Foreground="{StaticResource TextSecondaryBrush}"
+                            <TextBlock Text="Pirate Game Manager" Foreground="{StaticResource TextSecondaryBrush}"
                                        FontSize="10.5" Margin="0,3,0,0" FontWeight="Medium"/>
                         </StackPanel>
                         <Border Grid.Row="0" VerticalAlignment="Bottom" Height="1" Panel.ZIndex="1"

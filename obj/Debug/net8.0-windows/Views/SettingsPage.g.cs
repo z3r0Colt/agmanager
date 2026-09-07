@@ -52,7 +52,7 @@ namespace AgApp.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AgApp;component/views/settingspage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/DaveyJonesLocker;component/views/settingspage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\SettingsPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -10,6 +10,12 @@ public class LibraryService
     private static readonly string LibraryPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
         "AgApp", "library.json");
+    private static readonly string BackupPath = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "AgApp", "library.backup.json");
+
+    private const int CurrentSchemaVersion = 1;
+    private int _loadedSchemaVersion = 0;
 
     private List<InstalledGame> _games = new();
 
@@ -21,16 +27,56 @@ public class LibraryService
     {
         try
         {
-            if (File.Exists(LibraryPath))
-                _games = JsonSerializer.Deserialize<List<InstalledGame>>(File.ReadAllText(LibraryPath)) ?? new();
+            if (!File.Exists(LibraryPath)) return;
+            var text = File.ReadAllText(LibraryPath);
+            var opts = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            // Try loading as LibraryData first
+            try
+            {
+                var data = JsonSerializer.Deserialize<LibraryData>(text, opts);
+                if (data?.Games != null)
+                {
+                    _loadedSchemaVersion = data.SchemaVersion;
+                    _games = data.Games;
+
+                    // Backup if schema needs migration
+                    if (_loadedSchemaVersion < CurrentSchemaVersion && !File.Exists(BackupPath))
+                    {
+                        try { File.Copy(LibraryPath, BackupPath, overwrite: false); }
+                        catch (Exception ex) { AppLogger.Warn("Failed to create library backup", ex); }
+                    }
+                    return;
+                }
+            }
+            catch { }
+
+            // Fall back to legacy List<InstalledGame> format
+            _games = JsonSerializer.Deserialize<List<InstalledGame>>(text, opts) ?? new();
+            _loadedSchemaVersion = 0;
+
+            // Backup legacy format
+            if (!File.Exists(BackupPath))
+            {
+                try { File.Copy(LibraryPath, BackupPath, overwrite: false); }
+                catch (Exception ex) { AppLogger.Warn("Failed to create library backup", ex); }
+            }
         }
-        catch { _games = new(); }
+        catch (Exception ex)
+        {
+            AppLogger.Error("Failed to load library", ex);
+            _games = new();
+        }
     }
 
     public void Save()
     {
-        Directory.CreateDirectory(Path.GetDirectoryName(LibraryPath)!);
-        File.WriteAllText(LibraryPath, JsonSerializer.Serialize(_games, new JsonSerializerOptions { WriteIndented = true }));
+        try
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(LibraryPath)!);
+            var data = new LibraryData { SchemaVersion = CurrentSchemaVersion, Games = _games };
+            File.WriteAllText(LibraryPath, JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true }));
+        }
+        catch (Exception ex) { AppLogger.Error("Failed to save library", ex); }
     }
 
     public void AddGame(InstalledGame game)

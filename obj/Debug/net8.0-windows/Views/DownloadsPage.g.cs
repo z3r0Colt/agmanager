@@ -53,7 +53,7 @@ namespace AgApp.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AgApp;component/views/downloadspage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/DaveyJonesLocker;component/views/downloadspage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\DownloadsPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

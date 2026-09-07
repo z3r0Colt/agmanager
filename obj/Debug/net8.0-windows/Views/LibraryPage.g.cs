@@ -54,7 +54,7 @@ namespace AgApp.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AgApp;component/views/librarypage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/DaveyJonesLocker;component/views/librarypage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\LibraryPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -132,7 +132,7 @@ public partial class MainWindow : Window
 
     private void SetupTrayIcon(SettingsService settings)
     {
-        _trayIcon = new TaskbarIcon { ToolTipText = "AgApp — AnkerGames Manager" };
+        _trayIcon = new TaskbarIcon { ToolTipText = "Davey Jones' Locker — Pirate Game Manager" };
 
         var menu     = new System.Windows.Controls.ContextMenu();
         var showItem = new System.Windows.Controls.MenuItem { Header = "Show" };
@@ -240,7 +240,7 @@ public partial class MainWindow : Window
         if (_settings.Current.MinimizeToTray)
         {
             Hide();
-            _trayIcon?.ShowBalloonTip("AgApp", "Running in tray. Double-click to restore.", BalloonIcon.Info);
+            _trayIcon?.ShowBalloonTip("Davey Jones' Locker", "Running in tray. Double-click to restore.", BalloonIcon.Info);
         }
         else
         {
