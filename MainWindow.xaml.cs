@@ -101,6 +101,12 @@ public partial class MainWindow : Window
 
         downloadManager.DownloadStarted += job =>
             Dispatcher.Invoke(() => ShowDownloadToast(job.GameTitle));
+
+        downloadManager.ExtractionCompleted += (job, folder) =>
+        {
+            if (_settings.Current.NotifyOnExtractionComplete)
+                Dispatcher.Invoke(() => ShowBalloonTip("Extraction Complete", $"{job.GameTitle} is ready to play."));
+        };
     }
 
     private void RestoreWindowState(AppSettings s)

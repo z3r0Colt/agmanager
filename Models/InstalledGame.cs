@@ -49,6 +49,16 @@ public partial class InstalledGame : ObservableObject
     [ObservableProperty] private string _saveFolder = "";
     [ObservableProperty] private string _backupSchedule = ""; // "" = global default
 
+    // Update detection (Phase 4)
+    [ObservableProperty] private string _pageUrl = "";
+    [ObservableProperty] private string _versionString = "";
+    [ObservableProperty] private bool _hasUpdate;
+    [ObservableProperty] private DateTime _lastUpdateCheck = DateTime.MinValue;
+
+    // Library organization (Phase 5)
+    [ObservableProperty] private bool _isHidden;
+    [ObservableProperty] private string _status = ""; // "Backlog","Playing","Finished","Dropped",""
+
     // Launch options (persisted)
     [ObservableProperty] private string _launchTargetOverride = "";
     [ObservableProperty] private bool _runAsAdmin;

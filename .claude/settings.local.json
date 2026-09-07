@@ -5,7 +5,9 @@
       "PowerShell(winget install *)",
       "PowerShell($env:PATH = [System.Environment]::GetEnvironmentVariable\\(\"PATH\", \"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"PATH\", \"User\"\\); dotnet --list-sdks)",
       "WebFetch(domain:ankergames.net)",
-      "WebFetch(domain:www.ankergames.net)"
+      "WebFetch(domain:www.ankergames.net)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ]
   }
 }

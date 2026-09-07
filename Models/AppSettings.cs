@@ -15,6 +15,9 @@ public class AppSettings
     public bool AutoStartWithWindows { get; set; } = false;
     public string RawgApiKey { get; set; } = "4cc0bf4ae2144a2c915f60269a3a171d";
 
+    public int MaxConcurrentDownloads { get; set; } = 2;
+    public bool NotifyOnExtractionComplete { get; set; } = true;
+
     public string SaveBackupRoot { get; set; } = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AgApp", "SaveBackups");
     public int MaxBackupsPerGame { get; set; } = 5;

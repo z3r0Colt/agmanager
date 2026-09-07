@@ -8,6 +8,17 @@ public class ExtractionService
 {
     public event Action<string, double>? ProgressChanged;
 
+    public static bool IsMultiPart(string path)
+    {
+        var ext  = Path.GetExtension(path).ToLowerInvariant();
+        var name = Path.GetFileName(path).ToLowerInvariant();
+        return ext is ".001" or ".r00"
+            || name.EndsWith(".part1.rar", StringComparison.OrdinalIgnoreCase)
+            || name.EndsWith(".part01.rar", StringComparison.OrdinalIgnoreCase);
+        // SharpCompress's ArchiveFactory.OpenArchive handles multi-part RAR automatically
+        // when the first part is provided. No additional logic needed.
+    }
+
     public async Task<string> ExtractAndDeleteAsync(string archivePath, string destinationFolder,
         CancellationToken ct = default)
     {

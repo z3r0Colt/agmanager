@@ -76,7 +76,19 @@
                         <TextBlock Text="0 = unlimited" Style="{StaticResource SettingHint}"/>
                         <TextBox Style="{StaticResource SettingTextBox}"
                                  Text="{Binding MaxBandwidthKbps, UpdateSourceTrigger=PropertyChanged}"
-                                 Margin="0,4,0,0"/>
+                                 Margin="0,4,0,20"/>
+
+                        <TextBlock Text="Max Concurrent Downloads" Style="{StaticResource SettingLabel}"/>
+                        <TextBlock Text="How many downloads run simultaneously (1–5)" Style="{StaticResource SettingHint}"/>
+                        <Slider Minimum="1" Maximum="5" TickFrequency="1" IsSnapToTickEnabled="True"
+                                Value="{Binding MaxConcurrentDownloads}" Margin="0,4,0,4"/>
+                        <TextBlock FontSize="13" Margin="0,0,0,20">
+                            <Run Text="{Binding MaxConcurrentDownloads}"/>
+                            <Run Text=" concurrent"/>
+                        </TextBlock>
+
+                        <CheckBox Content="Notify when extraction completes"
+                                  IsChecked="{Binding NotifyOnExtractionComplete}"/>
                     </StackPanel>
                 </Border>
             </Border>

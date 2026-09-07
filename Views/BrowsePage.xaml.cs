@@ -99,7 +99,8 @@ public partial class BrowsePage : UserControl
         {
             GameTitle = suggestedName,
             GameId = uri.GetHashCode().ToString("x"),
-            Url = uri
+            Url = uri,
+            PageUrl = Browser.CoreWebView2?.Source ?? ""
         };
 
         _ = _downloader?.StartDownloadAsync(job);

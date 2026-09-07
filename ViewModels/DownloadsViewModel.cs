@@ -11,7 +11,7 @@ public partial class DownloadsViewModel : ObservableObject
 {
     private readonly DownloadManager _downloader;
 
-    [ObservableProperty] private ObservableCollection<DownloadJob> _jobs = new();
+    public ObservableCollection<DownloadJob> Jobs => _downloader.Jobs;
 
     public DownloadsViewModel(DownloadManager downloader)
     {
@@ -76,4 +76,10 @@ public partial class DownloadsViewModel : ObservableObject
                                                                           or DownloadStatus.Failed).ToList();
         foreach (var j in done) Jobs.Remove(j);
     }
+
+    [RelayCommand]
+    public void MoveUp(DownloadJob job) => _downloader.MoveUp(job);
+
+    [RelayCommand]
+    public void MoveDown(DownloadJob job) => _downloader.MoveDown(job);
 }

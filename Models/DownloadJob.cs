@@ -19,6 +19,9 @@ public partial class DownloadJob : ObservableObject
     [ObservableProperty] private DownloadStatus _status = DownloadStatus.Queued;
     [ObservableProperty] private string _errorMessage = "";
     [ObservableProperty] private TimeSpan _eta;
+    [ObservableProperty] private int _retryCount;
+    [ObservableProperty] private int _queuePosition;
+    [ObservableProperty] private string _pageUrl = "";
 
     public double Progress => TotalBytes > 0 ? (double)DownloadedBytes / TotalBytes * 100 : 0;
 

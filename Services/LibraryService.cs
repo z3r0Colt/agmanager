@@ -103,7 +103,7 @@ public class LibraryService
     }
 
     public InstalledGame? BuildFromExtractedFolder(string gameId, string gameTitle,
-        string coverUrl, string gameFolder)
+        string coverUrl, string gameFolder, string pageUrl = "")
     {
         if (!Directory.Exists(gameFolder)) return null;
 
@@ -127,7 +127,8 @@ public class LibraryService
             InstallPath = gameFolder,
             ExecutablePath = launcher,
             InstalledSizeBytes = sizeBytes,
-            InstalledAt = DateTime.Now
+            InstalledAt = DateTime.Now,
+            PageUrl = pageUrl
         };
     }
 
