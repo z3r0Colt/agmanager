@@ -24,6 +24,7 @@ public partial class App : Application
         collection.AddSingleton<DownloadManager>();
         collection.AddSingleton<GameSessionService>();
         collection.AddSingleton<SaveBackupService>();
+        collection.AddSingleton<UpdateCheckService>();
 
         collection.AddSingleton<BrowseViewModel>();
         collection.AddSingleton<DownloadsViewModel>();
@@ -53,6 +54,8 @@ public partial class App : Application
             if (sched == "OnExit")
                 await backup.BackupAsync(game);
         };
+
+        Services.GetRequiredService<UpdateCheckService>().StartBackgroundChecks();
 
         Services.GetRequiredService<MainWindow>().Show();
     }

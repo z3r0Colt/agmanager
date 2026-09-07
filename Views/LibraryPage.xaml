@@ -31,14 +31,24 @@
                 <TextBox Grid.Column="1" Style="{StaticResource SearchBox}" Margin="20,0,0,0"
                          Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"
                          Tag="Filter games…" MaxWidth="300" HorizontalAlignment="Left"/>
-                <Button Grid.Column="2" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"
-                        Command="{Binding BackupAllAsyncCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xE8D6;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
-                                   FontSize="13" Margin="0,0,6,0" IsHitTestVisible="False"/>
-                        <TextBlock Text="Back Up All" IsHitTestVisible="False"/>
-                    </StackPanel>
-                </Button>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,8,0">
+                    <Button Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"
+                            Command="{Binding CheckForUpdatesAsyncCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE72C;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                       FontSize="13" Margin="0,0,6,0" IsHitTestVisible="False"/>
+                            <TextBlock Text="Check Updates" IsHitTestVisible="False"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Style="{StaticResource SecondaryButton}"
+                            Command="{Binding BackupAllAsyncCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE8D6;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                       FontSize="13" Margin="0,0,6,0" IsHitTestVisible="False"/>
+                            <TextBlock Text="Back Up All" IsHitTestVisible="False"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
                 <TextBlock Grid.Column="3" Text="Sort:" Foreground="{StaticResource TextSecondaryBrush}"
                            FontSize="13" VerticalAlignment="Center" Margin="0,0,8,0"/>
                 <ComboBox Grid.Column="4" ItemsSource="{Binding SortOptions}"
@@ -227,9 +237,23 @@
                                         <!-- Info strip -->
                                         <Border Grid.Row="1" Background="{StaticResource SurfaceBrush}" Padding="10,9">
                                             <StackPanel>
-                                                <TextBlock Text="{Binding Title, Mode=OneWay}" Foreground="White"
-                                                           FontSize="12" FontWeight="SemiBold"
-                                                           TextWrapping="Wrap" MaxHeight="34"/>
+                                                <Grid>
+                                                    <TextBlock Text="{Binding Title, Mode=OneWay}" Foreground="White"
+                                                               FontSize="12" FontWeight="SemiBold"
+                                                               TextWrapping="Wrap" MaxHeight="34"/>
+                                                    <Border HorizontalAlignment="Right" VerticalAlignment="Top"
+                                                            CornerRadius="4" Padding="5,2"
+                                                            Visibility="{Binding HasUpdate, Converter={StaticResource BoolToVisible}}">
+                                                        <Border.Background>
+                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                                <GradientStop Color="#7c5cff" Offset="0"/>
+                                                                <GradientStop Color="#22d3ee" Offset="1"/>
+                                                            </LinearGradientBrush>
+                                                        </Border.Background>
+                                                        <TextBlock Text="UPDATE" Foreground="White" FontSize="8" FontWeight="Bold"/>
+                                                    </Border>
+                                                </Grid>
+                                                <!-- genre, size etc. -->
                                                 <Border CornerRadius="12" Padding="7,2" Margin="0,4,0,4"
                                                         HorizontalAlignment="Left"
                                                         Visibility="{Binding Genre, Converter={StaticResource StringToVisible}}">
@@ -588,6 +612,19 @@
                                         </StackPanel>
                                     </Button>
                                 </WrapPanel>
+
+                                <!-- Update Available banner -->
+                                <Border Background="#1a7c5cff" CornerRadius="8" Padding="12,8" Margin="0,0,0,12"
+                                        Visibility="{Binding SelectedGame.HasUpdate, Converter={StaticResource BoolToVisible}}">
+                                    <Grid>
+                                        <TextBlock Text="Update Available" Foreground="White" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                        <Button HorizontalAlignment="Right" Style="{StaticResource SecondaryButton}"
+                                                Command="{Binding OpenGamePageCommand}"
+                                                CommandParameter="{Binding SelectedGame}">
+                                            <TextBlock Text="Open in Browser" IsHitTestVisible="False"/>
+                                        </Button>
+                                    </Grid>
+                                </Border>
 
                                 <!-- Launch Options Expander -->
                                 <Expander Header="Launch Options" Margin="0,0,0,16" Foreground="{StaticResource TextBrush}">

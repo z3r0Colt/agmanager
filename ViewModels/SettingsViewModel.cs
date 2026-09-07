@@ -23,6 +23,7 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty] private string _defaultBackupSchedule = "OnExit";
     [ObservableProperty] private int _maxConcurrentDownloads = 2;
     [ObservableProperty] private bool _notifyOnExtractionComplete = true;
+    [ObservableProperty] private int _updateCheckIntervalHours = 24;
 
     public static string[] BackupScheduleOptions = ["OnExit", "Daily", "Weekly", "Off"];
 
@@ -47,6 +48,7 @@ public partial class SettingsViewModel : ObservableObject
         DefaultBackupSchedule = s.DefaultBackupSchedule;
         MaxConcurrentDownloads = s.MaxConcurrentDownloads;
         NotifyOnExtractionComplete = s.NotifyOnExtractionComplete;
+        UpdateCheckIntervalHours = s.UpdateCheckIntervalHours;
     }
 
     [RelayCommand]
@@ -73,6 +75,7 @@ public partial class SettingsViewModel : ObservableObject
         s.DefaultBackupSchedule = DefaultBackupSchedule;
         s.MaxConcurrentDownloads = Math.Clamp(MaxConcurrentDownloads, 1, 5);
         s.NotifyOnExtractionComplete = NotifyOnExtractionComplete;
+        s.UpdateCheckIntervalHours = Math.Max(1, UpdateCheckIntervalHours);
         _settingsService.Save();
 
         System.Windows.MessageBox.Show("Settings saved.", "Davey Jones' Locker",

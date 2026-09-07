@@ -17,6 +17,7 @@ public class AppSettings
 
     public int MaxConcurrentDownloads { get; set; } = 2;
     public bool NotifyOnExtractionComplete { get; set; } = true;
+    public int UpdateCheckIntervalHours { get; set; } = 24;
 
     public string SaveBackupRoot { get; set; } = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AgApp", "SaveBackups");

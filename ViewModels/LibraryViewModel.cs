@@ -21,6 +21,7 @@ public partial class LibraryViewModel : ObservableObject
     private readonly MetadataService _metadata;
     private readonly GameSessionService _session;
     private readonly SaveBackupService _backup;
+    private readonly UpdateCheckService _updateChecker;
 
     [ObservableProperty] private ObservableCollection<InstalledGame> _games = new();
     [ObservableProperty] private string _filterText = "";
@@ -64,12 +65,14 @@ public partial class LibraryViewModel : ObservableObject
     public static IReadOnlyList<string> EsrbOptions { get; } = ["", "E", "E10+", "T", "M", "AO", "RP"];
     public static IReadOnlyList<string> ControllerOptions { get; } = ["", "Full", "Partial", "None"];
 
-    public LibraryViewModel(LibraryService library, MetadataService metadata, GameSessionService session, SaveBackupService backup)
+    public LibraryViewModel(LibraryService library, MetadataService metadata, GameSessionService session,
+        SaveBackupService backup, UpdateCheckService updateChecker)
     {
         _library = library;
         _metadata = metadata;
         _session = session;
         _backup = backup;
+        _updateChecker = updateChecker;
     }
 
     public void Refresh()
@@ -426,6 +429,26 @@ public partial class LibraryViewModel : ObservableObject
         if (SelectedGame == null) return;
         try { await _backup.RestoreAsync(SelectedGame, backupPath); }
         catch (Exception ex) { AppLogger.Error("Restore failed", ex); }
+    }
+
+    // ── Update Detection commands ─────────────────────────────────────────
+
+    [RelayCommand]
+    public async Task CheckForUpdatesAsync()
+    {
+        try { await _updateChecker.CheckAllAsync(); }
+        catch (Exception ex) { AppLogger.Error("CheckForUpdates failed", ex); }
+    }
+
+    [RelayCommand]
+    public void OpenGamePage(InstalledGame? game)
+    {
+        if (game == null || string.IsNullOrEmpty(game.PageUrl)) return;
+        try
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(game.PageUrl) { UseShellExecute = true });
+        }
+        catch (Exception ex) { AppLogger.Warn("OpenGamePage failed", ex); }
     }
 
     [RelayCommand]
