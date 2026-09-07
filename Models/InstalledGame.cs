@@ -39,6 +39,19 @@ public partial class InstalledGame : ObservableObject
     public List<string> Screenshots { get; set; } = new();
     public List<string> Tags { get; set; } = new();
 
+    // Session state (not persisted)
+    [System.Text.Json.Serialization.JsonIgnore]
+    [ObservableProperty] private bool _isNowPlaying;
+    [System.Text.Json.Serialization.JsonIgnore]
+    [ObservableProperty] private TimeSpan _currentSessionTime;
+
+    // Launch options (persisted)
+    [ObservableProperty] private string _launchTargetOverride = "";
+    [ObservableProperty] private bool _runAsAdmin;
+    [ObservableProperty] private string _workingDirectoryOverride = "";
+    [ObservableProperty] private string _preLaunchPath = "";
+    [ObservableProperty] private string _preLaunchArgs = "";
+
     // ── Computed display ──────────────────────────────────────────────────
 
     public string HeroOrCoverUrl => !string.IsNullOrEmpty(HeroUrl) ? HeroUrl : CoverUrl;

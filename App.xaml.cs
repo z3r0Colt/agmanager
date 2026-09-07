@@ -1,4 +1,5 @@
 using System.Windows;
+using AgApp.Models;
 using AgApp.Services;
 using AgApp.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,7 @@ public partial class App : Application
         collection.AddSingleton<LibraryService>();
         collection.AddSingleton<MetadataService>();
         collection.AddSingleton<DownloadManager>();
+        collection.AddSingleton<GameSessionService>();
 
         collection.AddSingleton<BrowseViewModel>();
         collection.AddSingleton<DownloadsViewModel>();

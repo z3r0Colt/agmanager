@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using AgApp.Models;
@@ -139,14 +140,133 @@ public class LibraryService
 
         if (!File.Exists(path)) return;
 
-        var psi = new System.Diagnostics.ProcessStartInfo
+        var psi = new ProcessStartInfo
         {
             FileName = path,
             WorkingDirectory = Path.GetDirectoryName(path) ?? game.InstallPath,
             UseShellExecute = true
         };
-        System.Diagnostics.Process.Start(psi);
+        Process.Start(psi);
     }
+
+    public Process? LaunchGame(InstalledGame game, GameSessionService sessionService)
+    {
+        try
+        {
+            // Pre-launch
+            if (!string.IsNullOrWhiteSpace(game.PreLaunchPath) && File.Exists(game.PreLaunchPath))
+            {
+                try
+                {
+                    var pre = Process.Start(new ProcessStartInfo
+                    {
+                        FileName = game.PreLaunchPath,
+                        Arguments = game.PreLaunchArgs,
+                        UseShellExecute = true
+                    });
+                    pre?.WaitForExit(10000);
+                }
+                catch (Exception ex) { AppLogger.Warn("Pre-launch failed", ex); }
+            }
+
+            // Determine launcher
+            var launcher = !string.IsNullOrWhiteSpace(game.LaunchTargetOverride) && File.Exists(game.LaunchTargetOverride)
+                ? game.LaunchTargetOverride
+                : FindLauncherInFolder(game.InstallPath);
+
+            if (string.IsNullOrWhiteSpace(launcher) || !File.Exists(launcher))
+            {
+                AppLogger.Warn($"No launcher found for {game.Title}");
+                return null;
+            }
+
+            var workDir = !string.IsNullOrWhiteSpace(game.WorkingDirectoryOverride) && Directory.Exists(game.WorkingDirectoryOverride)
+                ? game.WorkingDirectoryOverride
+                : Path.GetDirectoryName(launcher) ?? game.InstallPath;
+
+            bool isBat = launcher.EndsWith(".bat", StringComparison.OrdinalIgnoreCase);
+
+            ProcessStartInfo psi;
+            if (game.RunAsAdmin && isBat)
+            {
+                psi = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    Arguments = $"/c \"{launcher}\"",
+                    WorkingDirectory = workDir,
+                    UseShellExecute = true,
+                    Verb = "runas"
+                };
+            }
+            else if (game.RunAsAdmin)
+            {
+                psi = new ProcessStartInfo
+                {
+                    FileName = launcher,
+                    WorkingDirectory = workDir,
+                    UseShellExecute = true,
+                    Verb = "runas"
+                };
+            }
+            else
+            {
+                psi = new ProcessStartInfo
+                {
+                    FileName = launcher,
+                    WorkingDirectory = workDir,
+                    UseShellExecute = true
+                };
+                if (!isBat && !string.IsNullOrWhiteSpace(game.LaunchArguments))
+                    psi.Arguments = game.LaunchArguments;
+            }
+
+            var proc = Process.Start(psi);
+            if (proc != null)
+                sessionService.BeginSession(game, proc);
+            return proc;
+        }
+        catch (Exception ex)
+        {
+            AppLogger.Error($"Failed to launch {game.Title}", ex);
+            return null;
+        }
+    }
+
+    public static string? ParseBatForExe(string batPath)
+    {
+        try
+        {
+            if (!File.Exists(batPath)) return null;
+            var dir = Path.GetDirectoryName(batPath) ?? "";
+            foreach (var line in File.ReadLines(batPath))
+            {
+                var trimmed = line.Trim();
+                // Match: START "" "path\game.exe" or just bare path.exe
+                var match = System.Text.RegularExpressions.Regex.Match(trimmed,
+                    @"(?i)(?:start\s+""[^""]*""\s+)?""([^""]+\.exe)""");
+                if (match.Success)
+                {
+                    var exePath = match.Groups[1].Value;
+                    if (!Path.IsPathRooted(exePath))
+                        exePath = Path.Combine(dir, exePath);
+                    if (File.Exists(exePath)) return exePath;
+                }
+                // Bare .exe reference
+                var bare = System.Text.RegularExpressions.Regex.Match(trimmed, @"(?i)^(\S+\.exe)\s*$");
+                if (bare.Success)
+                {
+                    var exePath = bare.Groups[1].Value;
+                    if (!Path.IsPathRooted(exePath))
+                        exePath = Path.Combine(dir, exePath);
+                    if (File.Exists(exePath)) return exePath;
+                }
+            }
+        }
+        catch (Exception ex) { AppLogger.Warn("ParseBatForExe failed", ex); }
+        return null;
+    }
+
+    public static string FindLauncherPublic(string folder) => FindLauncherInFolder(folder);
 
     public void DeleteGame(InstalledGame game)
     {

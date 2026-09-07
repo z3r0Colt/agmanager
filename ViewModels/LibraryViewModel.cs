@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using AgApp.Models;
 using AgApp.Services;
@@ -18,6 +19,7 @@ public partial class LibraryViewModel : ObservableObject
 {
     private readonly LibraryService _library;
     private readonly MetadataService _metadata;
+    private readonly GameSessionService _session;
 
     [ObservableProperty] private ObservableCollection<InstalledGame> _games = new();
     [ObservableProperty] private string _filterText = "";
@@ -42,16 +44,25 @@ public partial class LibraryViewModel : ObservableObject
     // Carousel index
     [ObservableProperty] private int _screenshotIndex;
 
+    // Launch options
+    private string _suggestedExe = "";
+    public string SuggestedExe
+    {
+        get => _suggestedExe;
+        private set { _suggestedExe = value; OnPropertyChanged(); }
+    }
+
     private InstalledGame? _editSnapshot;
 
     public static IReadOnlyList<string> SortOptions { get; } = ["Name", "Date", "Playtime", "Last Played", "Favorites"];
     public static IReadOnlyList<string> EsrbOptions { get; } = ["", "E", "E10+", "T", "M", "AO", "RP"];
     public static IReadOnlyList<string> ControllerOptions { get; } = ["", "Full", "Partial", "None"];
 
-    public LibraryViewModel(LibraryService library, MetadataService metadata)
+    public LibraryViewModel(LibraryService library, MetadataService metadata, GameSessionService session)
     {
         _library = library;
         _metadata = metadata;
+        _session = session;
     }
 
     public void Refresh()
@@ -87,6 +98,12 @@ public partial class LibraryViewModel : ObservableObject
         IsEditing = false;
         ShowMetadataSearch = false;
         ScreenshotIndex = 0;
+        try
+        {
+            SuggestedExe = LibraryService.ParseBatForExe(
+                LibraryService.FindLauncherPublic(game.InstallPath)) ?? "";
+        }
+        catch { SuggestedExe = ""; }
     }
 
     [RelayCommand]
@@ -313,7 +330,47 @@ public partial class LibraryViewModel : ObservableObject
     [RelayCommand]
     public void LaunchGame(InstalledGame game)
     {
-        _library.LaunchGame(game);
+        try { _library.LaunchGame(game, _session); }
+        catch (Exception ex) { AppLogger.Error("LaunchGame failed", ex); }
+    }
+
+    [RelayCommand]
+    public void SaveLaunchOptions(InstalledGame game)
+    {
+        try { _library.Save(); }
+        catch (Exception ex) { AppLogger.Error("SaveLaunchOptions failed", ex); }
+    }
+
+    [RelayCommand]
+    public void BrowseLaunchTarget(InstalledGame game)
+    {
+        var dlg = new Microsoft.Win32.OpenFileDialog
+        {
+            Title = "Select launcher",
+            Filter = "Launchers (*.bat;*.exe)|*.bat;*.exe|All files (*.*)|*.*",
+            InitialDirectory = Directory.Exists(game.InstallPath) ? game.InstallPath : null
+        };
+        if (dlg.ShowDialog() == true)
+            game.LaunchTargetOverride = dlg.FileName;
+    }
+
+    [RelayCommand]
+    public void BrowseWorkingDir(InstalledGame game)
+    {
+        var dlg = new Microsoft.Win32.OpenFileDialog
+        {
+            Title = "Select any file in the desired working directory",
+            InitialDirectory = Directory.Exists(game.InstallPath) ? game.InstallPath : null
+        };
+        if (dlg.ShowDialog() == true)
+            game.WorkingDirectoryOverride = Path.GetDirectoryName(dlg.FileName) ?? "";
+    }
+
+    [RelayCommand]
+    public void BrowsePreLaunch(InstalledGame game)
+    {
+        var dlg = new Microsoft.Win32.OpenFileDialog { Title = "Select pre-launch program" };
+        if (dlg.ShowDialog() == true) game.PreLaunchPath = dlg.FileName;
     }
 
     [RelayCommand]

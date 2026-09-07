@@ -320,8 +320,16 @@
                         <!-- Version footer -->
                         <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrush}"
                                 BorderThickness="0,1,0,0" Padding="20,12" Panel.ZIndex="1">
-                            <TextBlock Text="v1.0.0" Foreground="{StaticResource TextSecondaryBrush}"
-                                       FontSize="11"/>
+                            <StackPanel>
+                                <!-- Now Playing indicator -->
+                                <Border Visibility="{Binding IsNowPlaying, Converter={StaticResource BoolToVisible}}"
+                                        Background="#1a7c5cff" CornerRadius="6" Padding="10,6" Margin="0,0,0,8">
+                                    <TextBlock Text="{Binding NowPlayingText}" Foreground="{StaticResource TextBrush}"
+                                               FontSize="10" TextWrapping="Wrap"/>
+                                </Border>
+                                <TextBlock Text="v1.0.0" Foreground="{StaticResource TextSecondaryBrush}"
+                                           FontSize="11"/>
+                            </StackPanel>
                         </Border>
                     </Grid>
                 </Border>

@@ -580,6 +580,80 @@
                                     </Button>
                                 </WrapPanel>
 
+                                <!-- Launch Options Expander -->
+                                <Expander Header="Launch Options" Margin="0,0,0,16" Foreground="{StaticResource TextBrush}">
+                                    <StackPanel Margin="0,10,0,0">
+                                        <!-- Launch target -->
+                                        <TextBlock Text="Launch Target" Style="{StaticResource SettingLabel}"/>
+                                        <TextBlock Text="Leave blank to use auto-detected launcher (Run Me!.bat or largest exe)"
+                                                   Style="{StaticResource SettingHint}"/>
+                                        <Grid Margin="0,4,0,8">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox Grid.Column="0" Style="{StaticResource SettingTextBox}"
+                                                     Text="{Binding SelectedGame.LaunchTargetOverride, UpdateSourceTrigger=PropertyChanged}"
+                                                     Tag="Auto-detected"/>
+                                            <Button Grid.Column="1" Margin="6,0,0,0" Style="{StaticResource SecondaryButton}"
+                                                    Command="{Binding BrowseLaunchTargetCommand}"
+                                                    CommandParameter="{Binding SelectedGame}">
+                                                <TextBlock Text="Browse" IsHitTestVisible="False"/>
+                                            </Button>
+                                        </Grid>
+                                        <!-- Suggested exe from bat -->
+                                        <TextBlock Foreground="{StaticResource TextSecondaryBrush}" FontSize="11" Margin="0,0,0,10"
+                                                   Visibility="{Binding SuggestedExe, Converter={StaticResource StringToVisible}}">
+                                            <Run Text="Suggested exe from bat: "/>
+                                            <Run Text="{Binding SuggestedExe}"/>
+                                        </TextBlock>
+                                        <!-- Run as admin -->
+                                        <CheckBox Content="Run as administrator" Margin="0,0,0,10"
+                                                  IsChecked="{Binding SelectedGame.RunAsAdmin}"/>
+                                        <!-- Working directory -->
+                                        <TextBlock Text="Working Directory Override" Style="{StaticResource SettingLabel}"/>
+                                        <Grid Margin="0,4,0,10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox Grid.Column="0" Style="{StaticResource SettingTextBox}"
+                                                     Text="{Binding SelectedGame.WorkingDirectoryOverride, UpdateSourceTrigger=PropertyChanged}"
+                                                     Tag="Default (bat's folder)"/>
+                                            <Button Grid.Column="1" Margin="6,0,0,0" Style="{StaticResource SecondaryButton}"
+                                                    Command="{Binding BrowseWorkingDirCommand}"
+                                                    CommandParameter="{Binding SelectedGame}">
+                                                <TextBlock Text="Browse" IsHitTestVisible="False"/>
+                                            </Button>
+                                        </Grid>
+                                        <!-- Pre-launch -->
+                                        <TextBlock Text="Pre-Launch Program" Style="{StaticResource SettingLabel}"/>
+                                        <Grid Margin="0,4,0,4">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox Grid.Column="0" Style="{StaticResource SettingTextBox}"
+                                                     Text="{Binding SelectedGame.PreLaunchPath, UpdateSourceTrigger=PropertyChanged}"
+                                                     Tag="Optional program to run before game"/>
+                                            <Button Grid.Column="1" Margin="6,0,0,0" Style="{StaticResource SecondaryButton}"
+                                                    Command="{Binding BrowsePreLaunchCommand}"
+                                                    CommandParameter="{Binding SelectedGame}">
+                                                <TextBlock Text="Browse" IsHitTestVisible="False"/>
+                                            </Button>
+                                        </Grid>
+                                        <TextBox Style="{StaticResource SettingTextBox}" Margin="0,0,0,10"
+                                                 Text="{Binding SelectedGame.PreLaunchArgs, UpdateSourceTrigger=PropertyChanged}"
+                                                 Tag="Pre-launch arguments (optional)"/>
+                                        <!-- Save button -->
+                                        <Button Style="{StaticResource AccentButton}" HorizontalAlignment="Left"
+                                                Command="{Binding SaveLaunchOptionsCommand}"
+                                                CommandParameter="{Binding SelectedGame}">
+                                            <TextBlock Text="Save Launch Options" IsHitTestVisible="False"/>
+                                        </Button>
+                                    </StackPanel>
+                                </Expander>
+
                                 <!-- Screenshots -->
                                 <StackPanel Margin="0,0,0,24"
                                             Visibility="{Binding SelectedGame.Screenshots.Count, Converter={StaticResource IntGtZeroToVisible}}">
