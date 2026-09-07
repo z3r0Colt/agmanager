@@ -69,3 +69,7 @@ C:\Users\coltm\OneDrive\Desktop\agapp\obj\Debug\net8.0-windows\Views\StoragePage
 C:\Users\coltm\OneDrive\Desktop\agapp\obj\Debug\net8.0-windows\Views\StoragePage.baml
 C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\DiscordRPC.dll
 C:\Users\coltm\OneDrive\Desktop\agapp\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+C:\Users\coltm\OneDrive\Desktop\agapp\obj\Debug\net8.0-windows\Views\AboutPage.baml
+C:\Users\coltm\OneDrive\Desktop\agapp\obj\Debug\net8.0-windows\Views\LogPage.baml
+C:\Users\coltm\OneDrive\Desktop\agapp\obj\Debug\net8.0-windows\Views\AboutPage.g.cs
+C:\Users\coltm\OneDrive\Desktop\agapp\obj\Debug\net8.0-windows\Views\LogPage.g.cs

@@ -12,7 +12,9 @@ public class AppSettings
     public bool MinimizeToTray { get; set; } = true;
     public bool ShowNotifications { get; set; } = true;
     public bool DeleteZipAfterExtract { get; set; } = true;
-    public bool AutoStartWithWindows { get; set; } = false;
+    public bool AutoStartWithWindows { get; set; } = false;  // kept for JSON compat
+    public bool StartWithWindows { get; set; } = false;
+    public bool CloseToTray { get; set; } = false;
     public string RawgApiKey { get; set; } = "4cc0bf4ae2144a2c915f60269a3a171d";
 
     public int MaxConcurrentDownloads { get; set; } = 2;

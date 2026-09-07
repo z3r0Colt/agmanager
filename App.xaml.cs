@@ -27,6 +27,7 @@ public partial class App : Application
         collection.AddSingleton<UpdateCheckService>();
         collection.AddSingleton<StorageService>();
         collection.AddSingleton<DiscordService>();
+        collection.AddSingleton<GamepadService>();
 
         collection.AddSingleton<BrowseViewModel>();
         collection.AddSingleton<DownloadsViewModel>();
@@ -34,6 +35,8 @@ public partial class App : Application
         collection.AddSingleton<SettingsViewModel>();
         collection.AddSingleton<RedistViewModel>();
         collection.AddSingleton<StorageViewModel>();
+        collection.AddSingleton<AboutViewModel>();
+        collection.AddSingleton<LogViewModel>();
         collection.AddSingleton<MainViewModel>();
 
         collection.AddSingleton<MainWindow>();
@@ -62,6 +65,9 @@ public partial class App : Application
 
         // Discord Rich Presence stub
         Services.GetRequiredService<DiscordService>().Initialize();
+
+        // Gamepad stub — start polling (XInput calls are commented out in the stub)
+        Services.GetRequiredService<GamepadService>().Start();
 
         Services.GetRequiredService<MainWindow>().Show();
     }

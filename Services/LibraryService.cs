@@ -87,6 +87,9 @@ public class LibraryService
         Save();
     }
 
+    /// <summary>Adds the game if not present; updates it (by Id) if it already exists.</summary>
+    public void AddOrUpdate(InstalledGame game) => AddGame(game);
+
     public void RemoveGame(string id)
     {
         _games.RemoveAll(g => g.Id == id);

@@ -107,6 +107,74 @@ public partial class MainWindow : Window
             if (_settings.Current.NotifyOnExtractionComplete)
                 Dispatcher.Invoke(() => ShowBalloonTip("Extraction Complete", $"{job.GameTitle} is ready to play."));
         };
+
+        // Keyboard shortcuts
+        PreviewKeyDown += OnWindowKeyDown;
+    }
+
+    protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+    {
+        if (_settings.Current.CloseToTray)
+        {
+            e.Cancel = true;
+            Hide();
+            _trayIcon?.ShowBalloonTip("Davey Jones' Locker",
+                "Still running in the system tray. Double-click to restore.", BalloonIcon.Info);
+            return;
+        }
+        base.OnClosing(e);
+    }
+
+    private void OnWindowKeyDown(object sender, KeyEventArgs e)
+    {
+        try
+        {
+            var vm = DataContext as MainViewModel;
+            if (vm == null) return;
+
+            // Ctrl+, → Settings
+            if (e.Key == Key.OemComma && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                vm.Navigate("Settings");
+                e.Handled = true;
+                return;
+            }
+
+            // Ctrl+F → focus library search
+            if (e.Key == Key.F && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                if (vm.CurrentPage == "Library")
+                {
+                    var searchBox = FindName("SearchBox") as System.Windows.Controls.TextBox
+                        ?? FindVisualChild<System.Windows.Controls.TextBox>(this, "SearchBox");
+                    if (searchBox != null) { searchBox.Focus(); searchBox.SelectAll(); }
+                    e.Handled = true;
+                }
+                return;
+            }
+
+            // Escape → deselect game in Library
+            if (e.Key == Key.Escape && vm.CurrentPage == "Library")
+            {
+                vm.Library.SelectedGame = null;
+                e.Handled = true;
+            }
+        }
+        catch (Exception ex) { AppLogger.Warn("[MainWindow] KeyDown handler failed", ex); }
+    }
+
+    private static T? FindVisualChild<T>(System.Windows.DependencyObject parent, string? name = null)
+        where T : System.Windows.DependencyObject
+    {
+        for (int i = 0; i < System.Windows.Media.VisualTreeHelper.GetChildrenCount(parent); i++)
+        {
+            var child = System.Windows.Media.VisualTreeHelper.GetChild(parent, i);
+            if (child is T t && (name == null || (child is System.Windows.FrameworkElement fe && fe.Name == name)))
+                return t;
+            var result = FindVisualChild<T>(child, name);
+            if (result != null) return result;
+        }
+        return null;
     }
 
     private void RestoreWindowState(AppSettings s)
@@ -259,6 +327,7 @@ public partial class MainWindow : Window
 
     private void CloseBtn_Click(object sender, RoutedEventArgs e)
     {
+        // Title bar X button always quits, regardless of CloseToTray
         _trayIcon?.Dispose();
         Application.Current.Shutdown();
     }

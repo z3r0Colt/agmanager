@@ -177,10 +177,50 @@
                         <TextBlock Text="Behaviour" Style="{StaticResource SectionHeader}" Margin="0,0,0,16"/>
                         <CheckBox Content="Delete zip files after extraction" Margin="0,0,0,10"
                                   IsChecked="{Binding DeleteZipAfterExtract}"/>
-                        <CheckBox Content="Minimize to system tray" Margin="0,0,0,10"
+                        <CheckBox Content="Minimize to system tray when minimized" Margin="0,0,0,10"
                                   IsChecked="{Binding MinimizeToTray}"/>
+                        <CheckBox Content="Close to tray instead of quitting (Alt+F4 / OS close button)"
+                                  Margin="0,0,0,10" IsChecked="{Binding CloseToTray}"/>
+                        <CheckBox Content="Start with Windows (adds to startup registry)" Margin="0,0,0,10"
+                                  IsChecked="{Binding StartWithWindows}"/>
                         <CheckBox Content="Show notifications when downloads finish"
                                   IsChecked="{Binding ShowNotifications}"/>
+                    </StackPanel>
+                </Border>
+            </Border>
+
+            <!-- Library Export / Import card -->
+            <Border CornerRadius="13" Margin="0,0,0,28" Padding="1.5">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#28ffffff" Offset="0"/>
+                        <GradientStop Color="#06ffffff" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border Background="{StaticResource CardBrush}" CornerRadius="12" Padding="22">
+                    <StackPanel>
+                        <TextBlock Text="Library Data" Style="{StaticResource SectionHeader}" Margin="0,0,0,8"/>
+                        <TextBlock Style="{StaticResource SettingHint}" Margin="0,0,0,14">
+                            <Run Text="Export your library to a JSON file or import from a previously exported file."/>
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"
+                                    Command="{Binding ExportLibraryAsyncCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE898;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                               FontSize="13" Margin="0,0,6,0" IsHitTestVisible="False"/>
+                                    <TextBlock Text="Export Library" IsHitTestVisible="False"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Style="{StaticResource SecondaryButton}"
+                                    Command="{Binding ImportLibraryAsyncCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE8B5;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                               FontSize="13" Margin="0,0,6,0" IsHitTestVisible="False"/>
+                                    <TextBlock Text="Import Library" IsHitTestVisible="False"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
             </Border>
