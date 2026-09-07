@@ -10,7 +10,12 @@
     <Product>Davey Jones' Locker</Product>
     <AssemblyName>DaveyJonesLocker</AssemblyName>
     <Version>1.0.0</Version>
+    <ApplicationIcon>appico.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="appico.ico"/>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
