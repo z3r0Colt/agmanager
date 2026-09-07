@@ -24,15 +24,24 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Library" Style="{StaticResource PageTitle}"
                            VerticalAlignment="Center"/>
                 <TextBox Grid.Column="1" Style="{StaticResource SearchBox}" Margin="20,0,0,0"
                          Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"
                          Tag="Filter games…" MaxWidth="300" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Column="2" Text="Sort:" Foreground="{StaticResource TextSecondaryBrush}"
-                           FontSize="13" VerticalAlignment="Center" Margin="16,0,8,0"/>
-                <ComboBox Grid.Column="3" ItemsSource="{Binding SortOptions}"
+                <Button Grid.Column="2" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"
+                        Command="{Binding BackupAllAsyncCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE8D6;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                   FontSize="13" Margin="0,0,6,0" IsHitTestVisible="False"/>
+                        <TextBlock Text="Back Up All" IsHitTestVisible="False"/>
+                    </StackPanel>
+                </Button>
+                <TextBlock Grid.Column="3" Text="Sort:" Foreground="{StaticResource TextSecondaryBrush}"
+                           FontSize="13" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <ComboBox Grid.Column="4" ItemsSource="{Binding SortOptions}"
                           SelectedItem="{Binding SortBy}" VerticalAlignment="Center" Width="140"/>
             </Grid>
 
@@ -650,6 +659,56 @@
                                                 Command="{Binding SaveLaunchOptionsCommand}"
                                                 CommandParameter="{Binding SelectedGame}">
                                             <TextBlock Text="Save Launch Options" IsHitTestVisible="False"/>
+                                        </Button>
+                                    </StackPanel>
+                                </Expander>
+
+                                <!-- Save Game Backup Expander -->
+                                <Expander Header="Save Game Backup" Margin="0,0,0,16" Foreground="{StaticResource TextBrush}">
+                                    <StackPanel Margin="0,10,0,0">
+                                        <TextBlock Text="Save Folder" Style="{StaticResource SettingLabel}"/>
+                                        <Grid Margin="0,4,0,6">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox Grid.Column="0" Style="{StaticResource SettingTextBox}"
+                                                     Text="{Binding SelectedGame.SaveFolder, UpdateSourceTrigger=PropertyChanged}"
+                                                     Tag="Path to save game folder"/>
+                                            <Button Grid.Column="1" Margin="6,0,0,0" Style="{StaticResource SecondaryButton}"
+                                                    Command="{Binding BrowseSaveFolderCommand}"
+                                                    CommandParameter="{Binding SelectedGame}">
+                                                <TextBlock Text="Browse" IsHitTestVisible="False"/>
+                                            </Button>
+                                            <Button Grid.Column="2" Margin="6,0,0,0" Style="{StaticResource SecondaryButton}"
+                                                    Command="{Binding DetectSaveFolderCommand}"
+                                                    CommandParameter="{Binding SelectedGame}">
+                                                <TextBlock Text="Detect" IsHitTestVisible="False"/>
+                                            </Button>
+                                        </Grid>
+                                        <!-- Candidates list -->
+                                        <ItemsControl ItemsSource="{Binding SaveCandidates}"
+                                                      Visibility="{Binding SaveCandidates.Count, Converter={StaticResource IntGtZeroToVisible}}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Button Margin="0,2" Style="{StaticResource TransparentButton}"
+                                                            Command="{Binding DataContext.SelectSaveCandidateCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}">
+                                                        <TextBlock Text="{Binding}" Foreground="{StaticResource AccentLightBrush}" FontSize="11"
+                                                                   TextWrapping="Wrap"/>
+                                                    </Button>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        <TextBlock Text="Backup Schedule" Style="{StaticResource SettingLabel}" Margin="0,8,0,0"/>
+                                        <ComboBox Margin="0,4,0,8"
+                                                  SelectedValue="{Binding SelectedGame.BackupSchedule}"
+                                                  ItemsSource="{x:Static vm:LibraryViewModel.BackupScheduleOptions}"/>
+                                        <Button Style="{StaticResource MiniAccentButton}" HorizontalAlignment="Left" Margin="0,0,0,8"
+                                                Command="{Binding BackupNowAsyncCommand}"
+                                                CommandParameter="{Binding SelectedGame}">
+                                            <TextBlock Text="Backup Now" IsHitTestVisible="False"/>
                                         </Button>
                                     </StackPanel>
                                 </Expander>

@@ -1,6 +1,7 @@
 <UserControl x:Class="AgApp.Views.SettingsPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:AgApp.ViewModels"
              Background="Transparent"
              Style="{StaticResource PageTransition}">
 
@@ -97,6 +98,30 @@
                         <TextBox Style="{StaticResource SettingTextBox}"
                                  Text="{Binding RawgApiKey, UpdateSourceTrigger=PropertyChanged}"
                                  Margin="0,6,0,0" Tag="Paste your API key here…"/>
+                    </StackPanel>
+                </Border>
+            </Border>
+
+            <!-- Save Backup Settings card -->
+            <Border CornerRadius="13" Margin="0,0,0,20" Padding="1.5">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#28ffffff" Offset="0"/>
+                        <GradientStop Color="#06ffffff" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border Background="{StaticResource CardBrush}" CornerRadius="12" Padding="22">
+                    <StackPanel>
+                        <TextBlock Text="Save Game Backups" Style="{StaticResource SectionHeader}" Margin="0,0,0,16"/>
+                        <TextBlock Text="Backup Folder" Style="{StaticResource SettingLabel}"/>
+                        <TextBox Style="{StaticResource SettingTextBox}" Margin="0,4,0,10"
+                                 Text="{Binding SaveBackupRoot, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Text="Max Backups per Game" Style="{StaticResource SettingLabel}"/>
+                        <TextBox Style="{StaticResource SettingTextBox}" Margin="0,4,0,10"
+                                 Text="{Binding MaxBackupsPerGame, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Text="Default Backup Schedule" Style="{StaticResource SettingLabel}"/>
+                        <ComboBox Margin="0,4,0,0" SelectedValue="{Binding DefaultBackupSchedule}"
+                                  ItemsSource="{x:Static local:SettingsViewModel.BackupScheduleOptions}"/>
                     </StackPanel>
                 </Border>
             </Border>

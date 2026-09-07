@@ -45,6 +45,10 @@ public partial class InstalledGame : ObservableObject
     [System.Text.Json.Serialization.JsonIgnore]
     [ObservableProperty] private TimeSpan _currentSessionTime;
 
+    // Save backup settings
+    [ObservableProperty] private string _saveFolder = "";
+    [ObservableProperty] private string _backupSchedule = ""; // "" = global default
+
     // Launch options (persisted)
     [ObservableProperty] private string _launchTargetOverride = "";
     [ObservableProperty] private bool _runAsAdmin;

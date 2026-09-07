@@ -18,6 +18,11 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty] private bool _showNotifications = true;
     [ObservableProperty] private bool _deleteZipAfterExtract = true;
     [ObservableProperty] private string _rawgApiKey = "";
+    [ObservableProperty] private string _saveBackupRoot = "";
+    [ObservableProperty] private int _maxBackupsPerGame = 5;
+    [ObservableProperty] private string _defaultBackupSchedule = "OnExit";
+
+    public static string[] BackupScheduleOptions = ["OnExit", "Daily", "Weekly", "Off"];
 
     public SettingsViewModel(SettingsService settingsService)
     {
@@ -35,6 +40,9 @@ public partial class SettingsViewModel : ObservableObject
         ShowNotifications = s.ShowNotifications;
         DeleteZipAfterExtract = s.DeleteZipAfterExtract;
         RawgApiKey = s.RawgApiKey;
+        SaveBackupRoot = s.SaveBackupRoot;
+        MaxBackupsPerGame = s.MaxBackupsPerGame;
+        DefaultBackupSchedule = s.DefaultBackupSchedule;
     }
 
     [RelayCommand]
@@ -56,9 +64,12 @@ public partial class SettingsViewModel : ObservableObject
         s.ShowNotifications = ShowNotifications;
         s.DeleteZipAfterExtract = DeleteZipAfterExtract;
         s.RawgApiKey = RawgApiKey;
+        s.SaveBackupRoot = SaveBackupRoot;
+        s.MaxBackupsPerGame = Math.Max(1, MaxBackupsPerGame);
+        s.DefaultBackupSchedule = DefaultBackupSchedule;
         _settingsService.Save();
 
-        System.Windows.MessageBox.Show("Settings saved.", "AgApp",
+        System.Windows.MessageBox.Show("Settings saved.", "Davey Jones' Locker",
             MessageBoxButton.OK, MessageBoxImage.Information);
     }
 }

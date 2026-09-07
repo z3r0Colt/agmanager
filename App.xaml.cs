@@ -23,6 +23,7 @@ public partial class App : Application
         collection.AddSingleton<MetadataService>();
         collection.AddSingleton<DownloadManager>();
         collection.AddSingleton<GameSessionService>();
+        collection.AddSingleton<SaveBackupService>();
 
         collection.AddSingleton<BrowseViewModel>();
         collection.AddSingleton<DownloadsViewModel>();
@@ -40,6 +41,18 @@ public partial class App : Application
         settings.EnsureDownloadFolderExists();
 
         Services.GetRequiredService<LibraryService>().Load();
+
+        // Wire session backup
+        var session = Services.GetRequiredService<GameSessionService>();
+        var backup  = Services.GetRequiredService<SaveBackupService>();
+        var appSettings = Services.GetRequiredService<SettingsService>();
+        session.SessionEnded += async (game, _) =>
+        {
+            var sched = string.IsNullOrEmpty(game.BackupSchedule)
+                ? appSettings.Current.DefaultBackupSchedule : game.BackupSchedule;
+            if (sched == "OnExit")
+                await backup.BackupAsync(game);
+        };
 
         Services.GetRequiredService<MainWindow>().Show();
     }

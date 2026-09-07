@@ -15,6 +15,11 @@ public class AppSettings
     public bool AutoStartWithWindows { get; set; } = false;
     public string RawgApiKey { get; set; } = "4cc0bf4ae2144a2c915f60269a3a171d";
 
+    public string SaveBackupRoot { get; set; } = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AgApp", "SaveBackups");
+    public int MaxBackupsPerGame { get; set; } = 5;
+    public string DefaultBackupSchedule { get; set; } = "OnExit";
+
     public double WindowLeft { get; set; } = double.NaN;
     public double WindowTop { get; set; } = double.NaN;
     public double WindowWidth { get; set; } = 1200;

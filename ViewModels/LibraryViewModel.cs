@@ -20,6 +20,7 @@ public partial class LibraryViewModel : ObservableObject
     private readonly LibraryService _library;
     private readonly MetadataService _metadata;
     private readonly GameSessionService _session;
+    private readonly SaveBackupService _backup;
 
     [ObservableProperty] private ObservableCollection<InstalledGame> _games = new();
     [ObservableProperty] private string _filterText = "";
@@ -52,17 +53,23 @@ public partial class LibraryViewModel : ObservableObject
         private set { _suggestedExe = value; OnPropertyChanged(); }
     }
 
+    // Save backup
+    [ObservableProperty] private ObservableCollection<string> _saveCandidates = new();
+
+    public static string[] BackupScheduleOptions = ["", "OnExit", "Daily", "Weekly", "Off"];
+
     private InstalledGame? _editSnapshot;
 
     public static IReadOnlyList<string> SortOptions { get; } = ["Name", "Date", "Playtime", "Last Played", "Favorites"];
     public static IReadOnlyList<string> EsrbOptions { get; } = ["", "E", "E10+", "T", "M", "AO", "RP"];
     public static IReadOnlyList<string> ControllerOptions { get; } = ["", "Full", "Partial", "None"];
 
-    public LibraryViewModel(LibraryService library, MetadataService metadata, GameSessionService session)
+    public LibraryViewModel(LibraryService library, MetadataService metadata, GameSessionService session, SaveBackupService backup)
     {
         _library = library;
         _metadata = metadata;
         _session = session;
+        _backup = backup;
     }
 
     public void Refresh()
@@ -371,6 +378,54 @@ public partial class LibraryViewModel : ObservableObject
     {
         var dlg = new Microsoft.Win32.OpenFileDialog { Title = "Select pre-launch program" };
         if (dlg.ShowDialog() == true) game.PreLaunchPath = dlg.FileName;
+    }
+
+    // ── Save Backup commands ──────────────────────────────────────────────
+
+    [RelayCommand]
+    public async Task BackupNowAsync(InstalledGame game)
+    {
+        try { await _backup.BackupAsync(game); }
+        catch (Exception ex) { AppLogger.Error("BackupNow failed", ex); }
+    }
+
+    [RelayCommand]
+    public async Task BackupAllAsync()
+    {
+        try { await _backup.BackupAllAsync(); }
+        catch (Exception ex) { AppLogger.Error("BackupAll failed", ex); }
+    }
+
+    [RelayCommand]
+    public void DetectSaveFolder(InstalledGame game)
+    {
+        if (game == null) return;
+        SaveCandidates = new ObservableCollection<string>(_backup.DetectCandidates(game));
+    }
+
+    [RelayCommand]
+    public void SelectSaveCandidate(string path)
+    {
+        if (SelectedGame != null) SelectedGame.SaveFolder = path;
+    }
+
+    [RelayCommand]
+    public void BrowseSaveFolder(InstalledGame game)
+    {
+        var dlg = new Microsoft.Win32.OpenFileDialog { Title = "Select any file in your save folder" };
+        if (dlg.ShowDialog() == true)
+            game.SaveFolder = Path.GetDirectoryName(dlg.FileName) ?? "";
+    }
+
+    public List<(string Path, DateTime Created, long SizeBytes)> GetBackups(InstalledGame game) =>
+        _backup.ListBackups(game);
+
+    [RelayCommand]
+    public async Task RestoreBackupAsync(string backupPath)
+    {
+        if (SelectedGame == null) return;
+        try { await _backup.RestoreAsync(SelectedGame, backupPath); }
+        catch (Exception ex) { AppLogger.Error("Restore failed", ex); }
     }
 
     [RelayCommand]
