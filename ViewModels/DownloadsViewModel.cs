@@ -24,7 +24,7 @@ public partial class DownloadsViewModel : ObservableObject
     {
         Application.Current.Dispatcher.Invoke(() =>
         {
-            if (!Jobs.Contains(job))
+            if (job.Status != DownloadStatus.Cancelled && !Jobs.Contains(job))
                 Jobs.Insert(0, job);
         });
     }
@@ -53,7 +53,9 @@ public partial class DownloadsViewModel : ObservableObject
                 GameTitle = job.GameTitle,
                 GameId = job.GameId,
                 CoverUrl = job.CoverUrl,
-                Url = job.Url
+                Url = job.Url,
+                PageUrl = job.PageUrl,
+                DestinationPath = job.DestinationPath
             };
             Jobs.Remove(job);
             Jobs.Insert(0, newJob);

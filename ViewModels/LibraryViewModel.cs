@@ -498,13 +498,12 @@ public partial class LibraryViewModel : ObservableObject
     {
         try
         {
-            var dlg = new Microsoft.Win32.OpenFileDialog
+            var dlg = new Microsoft.Win32.OpenFolderDialog
             {
-                Title = "Select any file inside the parent folder containing game subfolders",
-                CheckFileExists = false
+                Title = "Choose the folder containing your installed game folders"
             };
             if (dlg.ShowDialog() != true) return;
-            var parentFolder = Path.GetDirectoryName(dlg.FileName) ?? "";
+            var parentFolder = dlg.FolderName;
             if (!Directory.Exists(parentFolder)) return;
 
             var subfolders = Directory.GetDirectories(parentFolder);

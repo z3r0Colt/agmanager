@@ -2,6 +2,21 @@
 
 All notable changes to Davey Jones' Locker are documented here.
 
+## [1.1.0] — 2026-11-01
+
+- Fixed first-save crashes caused by unset window coordinates and replaced the
+  installation-folder picker with the native WPF dialog.
+- Added writable-folder validation, inline save feedback, and recovery that
+  preserves existing settings when a save fails.
+- Kept active and resumed downloads in their original destination; handled
+  folder preparation errors and queued cancellation; honored archive retention.
+- Refreshed navigation, library search and status filters, game importing,
+  typography, dark surfaces, and Settings with a persistent save area.
+- Redesigned the original pirate flag / gaming PC / brass porthole emblem and
+  applied the new logo to the app, window, taskbar, tray, sidebar, and About page.
+- Deferred Discover browser startup and added recoverable initialization errors.
+- Added isolated app-data support and Windows regression checks.
+
 ## [1.0.0] — 2026-09-07
 
 ### Phase 0 — Rename + AppLogger + Library Schema Migration

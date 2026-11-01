@@ -5,7 +5,7 @@
              Background="Transparent"
              Style="{StaticResource PageTransition}">
 
-    <Grid Margin="28,24,28,28">
+    <Grid Margin="32,30,32,28">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -18,8 +18,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Downloads" Style="{StaticResource PageTitle}"
-                       VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="0"><TextBlock Text="Downloads" Style="{StaticResource PageTitle}"/>
+                <TextBlock Text="Track every download, from queue to ready to play." Foreground="{StaticResource TextSecondaryBrush}" Margin="0,6,0,0"/></StackPanel>
             <Button Grid.Column="2" Style="{StaticResource SecondaryButton}"
                     Command="{Binding ClearCompletedCommand}">
                 <StackPanel Orientation="Horizontal">
@@ -32,7 +32,7 @@
 
         <!-- Empty state -->
         <ContentControl Grid.Row="1" Style="{StaticResource EmptyState}"
-                        Tag="&#xE896;" Content="No active downloads"
+                        Tag="&#xE896;" Content="Your queue is clear. Find your next game in Discover."
                         Visibility="{Binding Jobs.Count, Converter={StaticResource ZeroToVisible}}"/>
 
         <!-- Job list -->

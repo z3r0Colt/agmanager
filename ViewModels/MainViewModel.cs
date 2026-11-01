@@ -6,7 +6,7 @@ namespace AgApp.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
-    [ObservableProperty] private string _currentPage = "Browse";
+    [ObservableProperty] private string _currentPage = "Library";
     [ObservableProperty] private string _nowPlayingText = "";
     [ObservableProperty] private bool _isNowPlaying;
     [ObservableProperty] private string _pendingBrowseUrl = "";
@@ -32,6 +32,7 @@ public partial class MainViewModel : ObservableObject
         Redist    = redist;
         About     = about;
         Session   = session;
+        Library.Refresh();
 
         session.SessionStarted += g =>
         {

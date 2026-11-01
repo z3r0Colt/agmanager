@@ -2,24 +2,24 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- Base -->
-    <Color x:Key="BackgroundColor">#0a0d14</Color>
-    <Color x:Key="BgAltColor">#10131c</Color>
-    <Color x:Key="SurfaceColor">#0e1220</Color>
-    <Color x:Key="CardColor">#131828</Color>
+    <Color x:Key="BackgroundColor">#0C0E14</Color>
+    <Color x:Key="BgAltColor">#10131B</Color>
+    <Color x:Key="SurfaceColor">#11141D</Color>
+    <Color x:Key="CardColor">#171B26</Color>
 
     <!-- Accent -->
-    <Color x:Key="AccentColor">#7c5cff</Color>
-    <Color x:Key="AccentLightColor">#a98bff</Color>
+    <Color x:Key="AccentColor">#8B75FF</Color>
+    <Color x:Key="AccentLightColor">#B8A9FF</Color>
     <Color x:Key="AccentDimColor">#261e55</Color>
     <Color x:Key="CyanColor">#22d3ee</Color>
     <Color x:Key="PinkColor">#f43f8e</Color>
     <Color x:Key="GreenColor">#34d399</Color>
 
     <!-- Border -->
-    <Color x:Key="BorderColor">#1e2540</Color>
+    <Color x:Key="BorderColor">#2A3040</Color>
 
     <!-- Text -->
-    <Color x:Key="TextColor">#d1d5e4</Color>
-    <Color x:Key="TextSecondaryColor">#7b8399</Color>
+    <Color x:Key="TextColor">#F0F2F8</Color>
+    <Color x:Key="TextSecondaryColor">#A0A8BC</Color>
 
 </ResourceDictionary>

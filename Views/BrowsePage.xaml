@@ -85,6 +85,7 @@
                 </Button>
 
                 <!-- Loading bar (center of toolbar) -->
+                <TextBlock Grid.Column="3" Text="Discover games" Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" Margin="8,0"/>
                 <ProgressBar Grid.Column="3" Height="2" VerticalAlignment="Bottom"
                              IsIndeterminate="True" Background="Transparent" BorderThickness="0"
                              Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisible}}"/>
@@ -105,13 +106,20 @@
                 <SolidColorBrush Color="#0a0d14" Opacity="0.4"/>
             </Border.Background>
             <Border.Effect>
-                <DropShadowEffect Color="#7c5cff" ShadowDepth="0" BlurRadius="18" Opacity="0.3"/>
+                <DropShadowEffect Color="#7c5cff" ShadowDepth="0" BlurRadius="0" Opacity="0"/>
             </Border.Effect>
 
             <!-- Inner: clips WebView2 to rounded corners -->
             <Border CornerRadius="6" ClipToBounds="True">
                 <wv2:WebView2 x:Name="Browser"/>
             </Border>
+        </Border>
+        <Border x:Name="BrowserError" Grid.Row="2" Visibility="Collapsed" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="32">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="420">
+                <TextBlock Text="Discover couldn't start" FontSize="22" FontWeight="SemiBold" TextAlignment="Center"/>
+                <TextBlock Text="Check that the Microsoft Edge WebView2 Runtime is installed, then try again. Your library and settings are still available." TextWrapping="Wrap" TextAlignment="Center" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,12,0,20"/>
+                <Button Content="Try again" Click="RetryBrowser_Click" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Center"/>
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>

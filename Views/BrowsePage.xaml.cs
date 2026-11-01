@@ -13,15 +13,22 @@ public partial class BrowsePage : UserControl
 {
     private BrowseViewModel? _vm;
     private DownloadManager? _downloader;
+    private bool _initializing;
+    private bool _initialized;
 
     public BrowsePage()
     {
         InitializeComponent();
         Loaded += OnLoaded;
+        IsVisibleChanged += (_, _) => { if (IsLoaded && IsVisible) OnLoaded(this, new RoutedEventArgs()); };
     }
 
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
+        if (!IsVisible || _initialized || _initializing) return;
+        _initializing = true;
+        try
+        {
         _vm = DataContext as BrowseViewModel;
         _downloader = App.Services.GetRequiredService<DownloadManager>();
         var adBlock = App.Services.GetRequiredService<AdBlockService>();
@@ -81,6 +88,20 @@ public partial class BrowsePage : UserControl
         core.DownloadStarting += OnDownloadStarting;
 
         core.Navigate("https://ankergames.net");
+        _initialized = true;
+        }
+        catch (Exception ex)
+        {
+            AppLogger.Warn("Couldn't initialize the Discover browser", ex);
+            BrowserError.Visibility = Visibility.Visible;
+        }
+        finally { _initializing = false; }
+    }
+
+    private void RetryBrowser_Click(object sender, RoutedEventArgs e)
+    {
+        BrowserError.Visibility = Visibility.Collapsed;
+        OnLoaded(sender, e);
     }
 
     private void OnDownloadStarting(object? sender, CoreWebView2DownloadStartingEventArgs e)

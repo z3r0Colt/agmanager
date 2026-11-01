@@ -45,8 +45,8 @@
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="NavActivePillBrush" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#3f7c5cff" Offset="0"/>
-        <GradientStop Color="#1f22d3ee" Offset="1"/>
+        <GradientStop Color="#298B75FF" Offset="0"/>
+        <GradientStop Color="#128B75FF" Offset="1"/>
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="NavActiveIndicatorBrush" StartPoint="0,0" EndPoint="0,1">

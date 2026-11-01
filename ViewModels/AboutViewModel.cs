@@ -20,7 +20,7 @@ public partial class AboutViewModel : ObservableObject
     {
         try
         {
-            Process.Start(new ProcessStartInfo("https://github.com/your-repo/davey-jones-locker")
+            Process.Start(new ProcessStartInfo("https://github.com/z3r0Colt/agmanager")
                 { UseShellExecute = true });
         }
         catch (Exception ex) { AppLogger.Warn($"[About] OpenGitHub failed: {ex.Message}"); }

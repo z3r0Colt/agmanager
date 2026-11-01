@@ -5,8 +5,7 @@ namespace AgApp.Services;
 public static class AppLogger
 {
     private static readonly string _logPath = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "AgApp", "app.log");
+        AppPaths.DataDirectory, "app.log");
 
     public static string LogFilePath => _logPath;
 

@@ -16,8 +16,7 @@ public class DownloadManager
     private SemaphoreSlim? _gate;
 
     private static readonly string JobsPath = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "AgApp", "jobs.json");
+        AppPaths.DataDirectory, "jobs.json");
 
     public ObservableCollection<DownloadJob> Jobs { get; } = new();
 
@@ -111,22 +110,28 @@ public class DownloadManager
 
     public async Task StartDownloadAsync(DownloadJob job)
     {
-        _settings.EnsureDownloadFolderExists();
-        var tempDir = Path.Combine(_settings.Current.DownloadFolder, ".tmp");
-        Directory.CreateDirectory(tempDir);
-
-        var fileName = SanitizeFileName(job.GameTitle) + ".zip";
-        var finalPath = Path.Combine(_settings.Current.DownloadFolder, fileName);
-        job.DestinationPath = finalPath;
-
         // Track job
         if (!Jobs.Contains(job))
             System.Windows.Application.Current?.Dispatcher.Invoke(() => Jobs.Insert(0, job));
 
         var gate = GetGate();
-        await gate.WaitAsync(job.CancellationSource.Token);
+        var enteredGate = false;
         try
         {
+            // Keep an in-progress/resumed job in its original folder even if Settings changes.
+            var destination = string.IsNullOrWhiteSpace(job.DestinationPath)
+                ? _settings.Current.DownloadFolder
+                : Path.GetDirectoryName(job.DestinationPath);
+            var installFolder = SettingsService.PrepareWritableFolder(destination);
+            var tempDir = Path.Combine(installFolder, ".tmp");
+            Directory.CreateDirectory(tempDir);
+            var finalPath = string.IsNullOrWhiteSpace(job.DestinationPath)
+                ? Path.Combine(installFolder, SanitizeFileName(job.GameTitle) + ".zip")
+                : job.DestinationPath;
+            job.DestinationPath = finalPath;
+
+            await gate.WaitAsync(job.CancellationSource.Token);
+            enteredGate = true;
             job.Status = DownloadStatus.Downloading;
             DownloadStarted?.Invoke(job);
             JobUpdated?.Invoke(job);
@@ -184,7 +189,7 @@ public class DownloadManager
             PersistJobs();
 
             var gameFolder = await _extractor.ExtractAndDeleteAsync(
-                finalPath, _settings.Current.DownloadFolder, job.CancellationSource.Token);
+                finalPath, installFolder, job.CancellationSource.Token, _settings.Current.DeleteZipAfterExtract);
 
             var installed = _library.BuildFromExtractedFolder(job.GameId, job.GameTitle, job.CoverUrl, gameFolder, job.PageUrl);
             if (installed is not null)
@@ -200,7 +205,7 @@ public class DownloadManager
         }
         catch (OperationCanceledException)
         {
-            job.Status = DownloadStatus.Cancelled;
+            if (job.Status != DownloadStatus.Paused) job.Status = DownloadStatus.Cancelled;
             JobUpdated?.Invoke(job);
             PersistJobs();
         }
@@ -213,7 +218,7 @@ public class DownloadManager
         }
         finally
         {
-            gate.Release();
+            if (enteredGate) gate.Release();
         }
     }
 
