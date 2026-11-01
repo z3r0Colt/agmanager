@@ -15,7 +15,7 @@
                 <Setter Property="BorderBrush" Value="#4d7c5cff"/>
                 <Setter Property="Effect">
                     <Setter.Value>
-                        <DropShadowEffect Color="#7c5cff" ShadowDepth="0" BlurRadius="24" Opacity="0.45"/>
+                        <DropShadowEffect Color="#7c5cff" ShadowDepth="0" BlurRadius="12" Opacity="0.15"/>
                     </Setter.Value>
                 </Setter>
             </Trigger>
@@ -32,10 +32,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ContentControl">
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.55">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="1">
                         <TextBlock Text="{TemplateBinding Tag}"
                                    FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
-                                   FontSize="52"
+                                   FontSize="40"
                                    Foreground="{StaticResource TextSecondaryBrush}"
                                    HorizontalAlignment="Center" Margin="0,0,0,16"/>
                         <ContentPresenter HorizontalAlignment="Center"

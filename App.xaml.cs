@@ -42,7 +42,8 @@ public partial class App : Application
 
         var settings = Services.GetRequiredService<SettingsService>();
         settings.Load();
-        settings.EnsureDownloadFolderExists();
+        try { settings.EnsureDownloadFolderExists(); }
+        catch (Exception ex) { AppLogger.Warn("Installation folder is unavailable. Choose another folder in Settings.", ex); }
 
         Services.GetRequiredService<LibraryService>().Load();
 

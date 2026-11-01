@@ -14,7 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="appico.ico"/>
+    <Resource Include="appico.ico"/>
+    <Resource Include="Assets\Brand\logo-mark.png"/>
+    <Compile Remove="tests\**\*.cs"/>
+    <Page Remove="tests\**\*.xaml"/>
   </ItemGroup>
 
   <ItemGroup>

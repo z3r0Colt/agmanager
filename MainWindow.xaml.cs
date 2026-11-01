@@ -201,12 +201,17 @@ public partial class MainWindow : Window
             s.WindowWidth  = Width;
             s.WindowHeight = Height;
         }
-        settings.Save();
+        try { settings.Save(); }
+        catch (Exception ex) { AppLogger.Warn("Couldn't save window state", ex); }
     }
 
     private void SetupTrayIcon(SettingsService settings)
     {
-        _trayIcon = new TaskbarIcon { ToolTipText = "Davey Jones' Locker — Pirate Game Manager" };
+        _trayIcon = new TaskbarIcon
+        {
+            ToolTipText = "Davey Jones' Locker — Pirate Game Manager",
+            IconSource = Icon
+        };
 
         var menu     = new System.Windows.Controls.ContextMenu();
         var showItem = new System.Windows.Controls.MenuItem { Header = "Show" };

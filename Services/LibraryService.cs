@@ -9,11 +9,9 @@ public class LibraryService
 {
     private readonly SettingsService _settings;
     private static readonly string LibraryPath = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "AgApp", "library.json");
+        AppPaths.DataDirectory, "library.json");
     private static readonly string BackupPath = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "AgApp", "library.backup.json");
+        AppPaths.DataDirectory, "library.backup.json");
 
     private const int CurrentSchemaVersion = 1;
     private int _loadedSchemaVersion = 0;

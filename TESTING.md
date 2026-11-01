@@ -2,6 +2,25 @@
 
 Use this checklist before publishing a release. Check each item manually.
 
+## Automated regression checks
+
+Run `dotnet run --project tests/AgApp.RegressionTests -c Release` on Windows with
+the .NET 8 SDK. The checks use isolated temporary app data and cover first-save
+serialization, folder validation, failed-write recovery, download preparation
+and cancellation, archive retention, embedded branding assets, and WPF resources.
+
+For manual testing with a separate library, set `AGMANAGER_DATA_DIRECTORY` to an
+absolute scratch directory before launching. Normal launches continue to use
+`%APPDATA%\AgApp`.
+
+## Branding
+
+- [ ] Executable and taskbar show the new porthole / pirate flag / gaming PC emblem
+- [ ] System tray icon uses the same emblem
+- [ ] Sidebar, title bar and About page display the logo without a solid backdrop
+- [ ] Icons are legible at 100%, 150% and 200% display scaling
+- [ ] Sidebar navigation remains reachable at the minimum window size
+
 ## Startup
 
 - [ ] App launches without errors

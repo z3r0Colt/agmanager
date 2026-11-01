@@ -29,8 +29,8 @@
 ## Building from Source
 
 ```bash
-git clone https://github.com/your-repo/davey-jones-locker.git
-cd davey-jones-locker
+git clone https://github.com/z3r0Colt/agmanager.git
+cd agmanager
 dotnet build -c Release
 ```
 

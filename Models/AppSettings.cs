@@ -22,7 +22,7 @@ public class AppSettings
     public int UpdateCheckIntervalHours { get; set; } = 24;
 
     public string SaveBackupRoot { get; set; } = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AgApp", "SaveBackups");
+        AgApp.Services.AppPaths.DataDirectory, "SaveBackups");
     public int MaxBackupsPerGame { get; set; } = 5;
     public string DefaultBackupSchedule { get; set; } = "OnExit";
 
@@ -33,7 +33,7 @@ public class AppSettings
 
     public double WindowLeft { get; set; } = double.NaN;
     public double WindowTop { get; set; } = double.NaN;
-    public double WindowWidth { get; set; } = 1200;
-    public double WindowHeight { get; set; } = 780;
+    public double WindowWidth { get; set; } = 1280;
+    public double WindowHeight { get; set; } = 820;
     public bool WindowMaximized { get; set; } = false;
 }

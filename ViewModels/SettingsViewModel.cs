@@ -1,7 +1,6 @@
 using System.IO;
 using System.Text.Json;
 using System.Windows;
-using System.Windows.Forms;
 using AgApp.Models;
 using AgApp.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -35,6 +34,8 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty] private string _discordClientId = "";
     [ObservableProperty] private bool _startWithWindows;
     [ObservableProperty] private bool _closeToTray;
+    [ObservableProperty] private string _statusMessage = "";
+    [ObservableProperty] private bool _hasError;
 
     public static string[] BackupScheduleOptions = ["OnExit", "Daily", "Weekly", "Off"];
 
@@ -70,38 +71,82 @@ public partial class SettingsViewModel : ObservableObject
     [RelayCommand]
     public void BrowseFolder()
     {
-        using var dlg = new FolderBrowserDialog { SelectedPath = DownloadFolder };
-        if (dlg.ShowDialog() == DialogResult.OK)
-            DownloadFolder = dlg.SelectedPath;
+        var selected = PickFolder(DownloadFolder, "Choose game installation folder");
+        if (selected != null) DownloadFolder = selected;
     }
+
+    [RelayCommand]
+    public void BrowseBackupFolder()
+    {
+        var selected = PickFolder(SaveBackupRoot, "Choose save backup folder");
+        if (selected != null) SaveBackupRoot = selected;
+    }
+
+    private string? PickFolder(string current, string title)
+    {
+        try
+        {
+            var dialog = new OpenFolderDialog { Title = title, Multiselect = false };
+            if (Directory.Exists(current)) dialog.InitialDirectory = current;
+            var owner = Application.Current?.MainWindow;
+            var result = owner == null ? dialog.ShowDialog() : dialog.ShowDialog(owner);
+            return result == true ? dialog.FolderName : null;
+        }
+        catch (Exception ex)
+        {
+            ReportError("Couldn't open the folder picker. You can enter a full path instead.", ex);
+            return null;
+        }
+    }
+
+    partial void OnDownloadFolderChanged(string value) => StatusMessage = "";
+    partial void OnSaveBackupRootChanged(string value) => StatusMessage = "";
 
     [RelayCommand]
     public void Save()
     {
-        var s = _settingsService.Current;
-        s.DownloadFolder = DownloadFolder;
-        s.ConnectionsPerDownload = Math.Clamp(ConnectionsPerDownload, 1, 32);
-        s.MaxBandwidthKbps = Math.Max(0, MaxBandwidthKbps);
-        s.MinimizeToTray = MinimizeToTray;
-        s.ShowNotifications = ShowNotifications;
-        s.DeleteZipAfterExtract = DeleteZipAfterExtract;
-        s.RawgApiKey = RawgApiKey;
-        s.SaveBackupRoot = SaveBackupRoot;
-        s.MaxBackupsPerGame = Math.Max(1, MaxBackupsPerGame);
-        s.DefaultBackupSchedule = DefaultBackupSchedule;
-        s.MaxConcurrentDownloads = Math.Clamp(MaxConcurrentDownloads, 1, 5);
-        s.NotifyOnExtractionComplete = NotifyOnExtractionComplete;
-        s.UpdateCheckIntervalHours = Math.Max(1, UpdateCheckIntervalHours);
-        s.EnableDiscordRichPresence = EnableDiscordRichPresence;
-        s.DiscordClientId = DiscordClientId;
-        s.StartWithWindows = StartWithWindows;
-        s.CloseToTray = CloseToTray;
-        _settingsService.Save();
+        try
+        {
+            // Validate a separate candidate so a failed save keeps the active settings intact.
+            var s = _settingsService.CreateSnapshot();
+            var startupChanged = s.StartWithWindows != StartWithWindows;
+            s.DownloadFolder = SettingsService.PrepareWritableFolder(DownloadFolder);
+            s.SaveBackupRoot = SettingsService.PrepareWritableFolder(SaveBackupRoot);
+            s.ConnectionsPerDownload = Math.Clamp(ConnectionsPerDownload, 1, 32);
+            s.MaxBandwidthKbps = Math.Max(0, MaxBandwidthKbps);
+            s.MinimizeToTray = MinimizeToTray;
+            s.ShowNotifications = ShowNotifications;
+            s.DeleteZipAfterExtract = DeleteZipAfterExtract;
+            s.RawgApiKey = RawgApiKey;
+            s.MaxBackupsPerGame = Math.Max(1, MaxBackupsPerGame);
+            s.DefaultBackupSchedule = DefaultBackupSchedule;
+            s.MaxConcurrentDownloads = Math.Clamp(MaxConcurrentDownloads, 1, 5);
+            s.NotifyOnExtractionComplete = NotifyOnExtractionComplete;
+            s.UpdateCheckIntervalHours = Math.Max(1, UpdateCheckIntervalHours);
+            s.EnableDiscordRichPresence = EnableDiscordRichPresence;
+            s.DiscordClientId = DiscordClientId;
+            s.StartWithWindows = StartWithWindows;
+            s.CloseToTray = CloseToTray;
+            _settingsService.Save(s);
 
-        ApplyStartWithWindows(StartWithWindows);
+            if (startupChanged) ApplyStartWithWindows(StartWithWindows);
 
-        System.Windows.MessageBox.Show("Settings saved.", "Davey Jones' Locker",
-            MessageBoxButton.OK, MessageBoxImage.Information);
+            DownloadFolder = s.DownloadFolder;
+            SaveBackupRoot = s.SaveBackupRoot;
+            HasError = false;
+            StatusMessage = "Settings saved. New downloads will use your installation folder.";
+        }
+        catch (Exception ex)
+        {
+            ReportError($"Settings weren't saved. {ex.Message}", ex);
+        }
+    }
+
+    private void ReportError(string message, Exception ex)
+    {
+        AppLogger.Warn("[Settings] Folder or save operation failed", ex);
+        HasError = true;
+        StatusMessage = message;
     }
 
     private static void ApplyStartWithWindows(bool enable)
@@ -161,7 +206,7 @@ public partial class SettingsViewModel : ObservableObject
             };
             if (dlg.ShowDialog() != true) return;
 
-            var json  = await File.ReadAllTextAsync(dlg.FileName).ConfigureAwait(false);
+            var json  = await File.ReadAllTextAsync(dlg.FileName);
             var opts  = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var games = JsonSerializer.Deserialize<List<InstalledGame>>(json, opts);
             if (games == null || games.Count == 0)

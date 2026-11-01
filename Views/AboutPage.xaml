@@ -20,14 +20,7 @@
                 <Border Background="{StaticResource CardBrush}" CornerRadius="12" Padding="28,24">
                     <StackPanel>
                         <!-- Icon -->
-                        <TextBlock Text="◈" FontSize="44" HorizontalAlignment="Center" Margin="0,0,0,12">
-                            <TextBlock.Foreground>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#7c5cff" Offset="0"/>
-                                    <GradientStop Color="#22d3ee" Offset="1"/>
-                                </LinearGradientBrush>
-                            </TextBlock.Foreground>
-                        </TextBlock>
+                        <Image Source="/DaveyJonesLocker;component/Assets/Brand/logo-mark.png" Width="120" Height="120" HorizontalAlignment="Center" Margin="0,0,0,16" RenderOptions.BitmapScalingMode="HighQuality" AutomationProperties.Name="Davey Jones' Locker logo"/>
 
                         <TextBlock Text="{Binding AppName}" FontSize="24" FontWeight="Bold"
                                    HorizontalAlignment="Center" Margin="0,0,0,4">

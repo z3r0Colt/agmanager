@@ -20,7 +20,7 @@ public class ExtractionService
     }
 
     public async Task<string> ExtractAndDeleteAsync(string archivePath, string destinationFolder,
-        CancellationToken ct = default)
+        CancellationToken ct = default, bool deleteArchive = true)
     {
         var gameFolder = Path.Combine(destinationFolder,
             Path.GetFileNameWithoutExtension(archivePath));
@@ -62,7 +62,7 @@ public class ExtractionService
             }
         }, ct);
 
-        File.Delete(archivePath);
+        if (deleteArchive) File.Delete(archivePath);
         return gameFolder;
     }
 }
