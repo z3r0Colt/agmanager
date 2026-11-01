@@ -149,7 +149,7 @@
                             </Border>
                             <Separator Margin="0,0,0,14"/>
                             <TextBlock Text="Made for your next session." Style="{StaticResource Caption}"/>
-                            <TextBlock Text="VERSION 1.0.0" FontSize="9" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,5,0,0"/>
+                            <TextBlock Text="{Binding About.AppVersion}" FontSize="9" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,5,0,0"/>
                         </StackPanel>
                     </Grid>
                 </Border>

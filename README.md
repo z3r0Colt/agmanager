@@ -20,6 +20,11 @@
 
 ## Requirements
 
+Download the standalone Windows x64 ZIP from the
+[latest release](https://github.com/z3r0Colt/agmanager/releases/latest), extract
+the entire folder, and run `DaveyJonesLocker.exe`. The standalone build includes
+.NET; Microsoft Edge WebView2 Runtime is still used by Discover.
+
 - Windows 10 or later (64-bit)
 - [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
@@ -35,6 +40,12 @@ dotnet build -c Release
 ```
 
 Output: `bin\Release\net8.0-windows\DaveyJonesLocker.dll`
+
+To create the standalone Windows x64 release:
+
+```bash
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true
+```
 
 ---
 
